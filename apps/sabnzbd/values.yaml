@@ -1,0 +1,15 @@
+sabnzbd:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/issuer: "letsencrypt-staging"
+      hosts:
+      - host: sabnzbd.worm.run
+        paths:
+          - path: /
+            pathType: Prefix
+      tls:
+      - secretName: sabnzbd-tls-certificate
+        hosts:
+        - sabnzbd.worm.run
