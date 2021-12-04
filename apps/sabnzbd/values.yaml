@@ -20,4 +20,4 @@ sabnzbd:
       enabled: true
       type: hostPath
       hostPath: /mnt/downloads
-      mountPath: /config/Downloads
+      mountPath: /mnt/downloads
