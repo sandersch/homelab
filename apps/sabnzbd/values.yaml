@@ -19,3 +19,4 @@ sabnzbd:
     downloads:
       enabled: true
       mountPath: /downloads
+      accessMode: ReadWriteMany
