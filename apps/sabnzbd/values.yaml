@@ -13,3 +13,9 @@ sabnzbd:
       - secretName: sabnzbd-tls-certificate
         hosts:
         - sabnzbd.worm.run
+  persistence:
+    config:
+      enabled: true
+    downloads:
+      enabled: true
+      mountPath: /downloads
