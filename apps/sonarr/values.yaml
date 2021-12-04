@@ -20,3 +20,8 @@ sonarr:
       enabled: true
       type: hostPath
       hostPath: /mnt/media
+    downloads:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/downloads
+      mountPath: /config/Downloads

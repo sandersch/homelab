@@ -18,7 +18,6 @@ sabnzbd:
       enabled: true
     downloads:
       enabled: true
-      type: pvc
-      mountPath: /downloads
-      accessMode: ReadWriteMany
-      size: 10Gi
+      type: hostPath
+      hostPath: /mnt/downloads
+      mountPath: /config/Downloads
