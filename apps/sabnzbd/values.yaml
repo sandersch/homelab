@@ -20,3 +20,4 @@ sabnzbd:
       enabled: true
       mountPath: /downloads
       accessMode: ReadWriteMany
+      size: 10Gi
