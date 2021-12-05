@@ -1,0 +1,27 @@
+radarr:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/issuer: "letsencrypt-staging"
+      hosts:
+      - host: radarr.worm.run
+        paths:
+          - path: /
+            pathType: Prefix
+      tls:
+      - secretName: radarr-tls-certificate
+        hosts:
+        - radarr.worm.run
+  persistence:
+    config:
+      enabled: true
+    media:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/media
+    downloads:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/downloads
+      mountPath: /mnt/downloads
