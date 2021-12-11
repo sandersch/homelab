@@ -1,0 +1,37 @@
+kube-prometheus-stack:
+  alertmanager:
+    ingress:
+      enabled: true
+      ingressClassName: public
+      annotations:
+        cert-manager.io/issuer: "letsencrypt-staging"
+      hosts:
+      - host: alertmanager.worm.run
+      tls:
+      - secretname: alertmanager-general-tls
+        hosts:
+        - alertmanager.worm.run
+  grafana:
+    ingress:
+      enabled: true
+      ingressClassName: public
+      annotations:
+        cert-manager.io/issuer: "letsencrypt-staging"
+      hosts:
+      - host: grafana.worm.run
+      tls:
+      - secretname: grafana-general-tls
+        hosts:
+        - grafana.worm.run
+  prometheus:
+    ingress:
+      enabled: true
+      ingressClassName: public
+      annotations:
+        cert-manager.io/issuer: "letsencrypt-staging"
+      hosts:
+      - host: prometheus.worm.run
+      tls:
+      - secretname: prometheus-general-tls
+        hosts:
+        - prometheus.worm.run
