@@ -6,7 +6,7 @@ spec:
   generators:
   - git:
       repoURL: https://github.com/sandersch/homelab.git
-      revision: main
+      revision: HEAD
       directories:
       - path: platform/*
   template:
