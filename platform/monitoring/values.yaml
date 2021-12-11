@@ -5,7 +5,7 @@ kube-prometheus-stack:
       annotations:
         cert-manager.io/issuer: "letsencrypt-staging"
       hosts:
-      - host: alertmanager.worm.run
+      - alertmanager.worm.run
       tls:
       - secretName: alertmanager-general-tls
         hosts:
@@ -16,7 +16,7 @@ kube-prometheus-stack:
       annotations:
         cert-manager.io/issuer: "letsencrypt-staging"
       hosts:
-      - host: grafana.worm.run
+      - grafana.worm.run
       tls:
       - secretName: grafana-general-tls
         hosts:
@@ -27,7 +27,7 @@ kube-prometheus-stack:
       annotations:
         cert-manager.io/issuer: "letsencrypt-staging"
       hosts:
-      - host: prometheus.worm.run
+      - prometheus.worm.run
       tls:
       - secretName: prometheus-general-tls
         hosts:
