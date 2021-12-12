@@ -712,7 +712,7 @@ data:
         timeInterval: 30s
     - name: Loki
       type: loki
-      url: http://loki:3100
+      url: http://monitoring-loki.default.svc.cluster.local:3100
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/alertmanager-overview.yaml
 apiVersion: v1
