@@ -1,5 +1,5 @@
 resources:
 - ./all.yaml
 
-patches:
-- use_replace_to_sync_prometheus.yaml
+patchesStrategicMerge:
+- overlays/prometheuses_crd.yaml
