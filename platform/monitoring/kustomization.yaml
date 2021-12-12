@@ -1,10 +1,10 @@
 resources:
 - ./all.yaml
 
-patchesJson6902:
-- target:
+patches:
+- path: ./use_replace_to_sync_prometheuses.yaml
+  target:
     group: apiextensions
     version: v1
     kind: CustomResourceDefinition
     name: prometheuses.monitoring.coreos.com
-  path: ./use_replace_to_sync_prometheuses.yaml
