@@ -12,6 +12,6 @@ resources:
 - ingress.yaml
 
 patches:
-  - path: argocd-server-deployment-patch.yaml
+- path: argocd-server-deployment-patch.yaml
 
 namespace: argocd
