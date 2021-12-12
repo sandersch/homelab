@@ -186,9 +186,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -240,9 +240,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -294,9 +294,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -337,6 +337,82 @@ spec:
       - min: 0
         max: 65535
   readOnlyRootFilesystem: false
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/podsecuritypolicy.yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: monitoring-loki
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    heritage: Helm
+    release: monitoring
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'persistentVolumeClaim'
+    - 'secret'
+    - 'projected'
+    - 'downwardAPI'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+    - min: 1
+      max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+    - min: 1
+      max: 65535
+  readOnlyRootFilesystem: true
+  requiredDropCapabilities:
+    - ALL
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/podsecuritypolicy.yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: monitoring-promtail
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    heritage: Helm
+    release: monitoring
+spec:
+  allowPrivilegeEscalation: false
+  fsGroup:
+    rule: RunAsAny
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  requiredDropCapabilities:
+  - ALL
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - secret
+  - configMap
+  - hostPath
+  - projected
+  - downwardAPI
+  - emptyDir
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/serviceaccount.yaml
 apiVersion: v1
@@ -410,9 +486,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 ---
@@ -429,9 +505,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 ---
@@ -448,11 +524,38 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    heritage: Helm
+    release: monitoring
+  annotations:
+    {}
+  name: monitoring-loki
+  namespace: default
+automountServiceAccountToken: true
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    heritage: Helm
+    release: monitoring
+  name: monitoring-promtail
+  namespace: default
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/secret.yaml
 apiVersion: v1
@@ -483,13 +586,27 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
   alertmanager.yaml: "Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogNW0KcmVjZWl2ZXJzOgotIG5hbWU6ICJudWxsIgpyb3V0ZToKICBncm91cF9ieToKICAtIGpvYgogIGdyb3VwX2ludGVydmFsOiA1bQogIGdyb3VwX3dhaXQ6IDMwcwogIHJlY2VpdmVyOiAibnVsbCIKICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJvdXRlczoKICAtIG1hdGNoOgogICAgICBhbGVydG5hbWU6IFdhdGNoZG9nCiAgICByZWNlaXZlcjogIm51bGwiCnRlbXBsYXRlczoKLSAvZXRjL2FsZXJ0bWFuYWdlci9jb25maWcvKi50bXBs"
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: monitoring-loki
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    release: monitoring
+    heritage: Helm
+data:
+  loki.yaml: YXV0aF9lbmFibGVkOiBmYWxzZQpjaHVua19zdG9yZV9jb25maWc6CiAgbWF4X2xvb2tfYmFja19wZXJpb2Q6IDBzCmNvbXBhY3RvcjoKICBzaGFyZWRfc3RvcmU6IGZpbGVzeXN0ZW0KICB3b3JraW5nX2RpcmVjdG9yeTogL2RhdGEvbG9raS9ib2x0ZGItc2hpcHBlci1jb21wYWN0b3IKaW5nZXN0ZXI6CiAgY2h1bmtfYmxvY2tfc2l6ZTogMjYyMTQ0CiAgY2h1bmtfaWRsZV9wZXJpb2Q6IDNtCiAgY2h1bmtfcmV0YWluX3BlcmlvZDogMW0KICBsaWZlY3ljbGVyOgogICAgcmluZzoKICAgICAga3ZzdG9yZToKICAgICAgICBzdG9yZTogaW5tZW1vcnkKICAgICAgcmVwbGljYXRpb25fZmFjdG9yOiAxCiAgbWF4X3RyYW5zZmVyX3JldHJpZXM6IDAKbGltaXRzX2NvbmZpZzoKICBlbmZvcmNlX21ldHJpY19uYW1lOiBmYWxzZQogIHJlamVjdF9vbGRfc2FtcGxlczogdHJ1ZQogIHJlamVjdF9vbGRfc2FtcGxlc19tYXhfYWdlOiAxNjhoCnNjaGVtYV9jb25maWc6CiAgY29uZmlnczoKICAtIGZyb206ICIyMDIwLTEwLTI0IgogICAgaW5kZXg6CiAgICAgIHBlcmlvZDogMjRoCiAgICAgIHByZWZpeDogaW5kZXhfCiAgICBvYmplY3Rfc3RvcmU6IGZpbGVzeXN0ZW0KICAgIHNjaGVtYTogdjExCiAgICBzdG9yZTogYm9sdGRiLXNoaXBwZXIKc2VydmVyOgogIGh0dHBfbGlzdGVuX3BvcnQ6IDMxMDAKc3RvcmFnZV9jb25maWc6CiAgYm9sdGRiX3NoaXBwZXI6CiAgICBhY3RpdmVfaW5kZXhfZGlyZWN0b3J5OiAvZGF0YS9sb2tpL2JvbHRkYi1zaGlwcGVyLWFjdGl2ZQogICAgY2FjaGVfbG9jYXRpb246IC9kYXRhL2xva2kvYm9sdGRiLXNoaXBwZXItY2FjaGUKICAgIGNhY2hlX3R0bDogMjRoCiAgICBzaGFyZWRfc3RvcmU6IGZpbGVzeXN0ZW0KICBmaWxlc3lzdGVtOgogICAgZGlyZWN0b3J5OiAvZGF0YS9sb2tpL2NodW5rcwp0YWJsZV9tYW5hZ2VyOgogIHJldGVudGlvbl9kZWxldGVzX2VuYWJsZWQ6IGZhbHNlCiAgcmV0ZW50aW9uX3BlcmlvZDogMHM=
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/configmap-dashboard-provider.yaml
 apiVersion: v1
@@ -577,9 +694,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -611,9 +728,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -1220,9 +1337,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -2966,9 +3083,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -4847,9 +4964,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -6023,9 +6140,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -7138,9 +7255,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -8672,9 +8789,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -11695,9 +11812,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -14438,9 +14555,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -15415,9 +15532,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -17841,9 +17958,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -19826,9 +19943,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -21976,9 +22093,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -24229,9 +24346,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -25692,9 +25809,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -27427,9 +27544,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -28489,9 +28606,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -29577,9 +29694,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -30567,9 +30684,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -31143,9 +31260,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -32370,9 +32487,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -33604,9 +33721,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -34860,9 +34977,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -35959,9 +36076,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -36886,9 +37003,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 data:
@@ -38309,6 +38426,357 @@ data:
         "version": 0
     }
 ---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monitoring-promtail
+  namespace: default
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    release: monitoring
+    heritage: Helm
+data:
+  promtail.yaml: |
+    client:
+      backoff_config:
+        max_period: 5m
+        max_retries: 10
+        min_period: 500ms
+      batchsize: 1048576
+      batchwait: 1s
+      external_labels: {}
+      timeout: 10s
+    positions:
+      filename: /run/promtail/positions.yaml
+    server:
+      http_listen_port: 3101
+    target_config:
+      sync_period: 10s
+    scrape_configs:
+    - job_name: kubernetes-pods-name
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - source_labels:
+        - __meta_kubernetes_pod_label_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: ''
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-app
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+      - source_labels:
+        - __meta_kubernetes_pod_label_app
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: ''
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-direct-controllers
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        separator: ''
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+        - __meta_kubernetes_pod_label_app
+      - action: drop
+        regex: '[0-9a-z-.]+-[0-9a-f]{8,10}'
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+      - source_labels:
+        - __meta_kubernetes_pod_controller_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: ''
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-indirect-controller
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: .+
+        separator: ''
+        source_labels:
+        - __meta_kubernetes_pod_label_name
+        - __meta_kubernetes_pod_label_app
+      - action: keep
+        regex: '[0-9a-z-.]+-[0-9a-f]{8,10}'
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+      - action: replace
+        regex: '([0-9a-z-.]+)-[0-9a-f]{8,10}'
+        source_labels:
+        - __meta_kubernetes_pod_controller_name
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: ''
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_uid
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+    - job_name: kubernetes-pods-static
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: ''
+        source_labels:
+        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_label_component
+        target_label: __service__
+      - source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: __host__
+      - action: drop
+        regex: ''
+        source_labels:
+        - __service__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+        - __meta_kubernetes_namespace
+        - __service__
+        target_label: job
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_container_name
+        target_label: container
+      - replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+        - __meta_kubernetes_pod_annotation_kubernetes_io_config_mirror
+        - __meta_kubernetes_pod_container_name
+        target_label: __path__
+---
+# Source: kube-prometheus-stack/charts/loki-stack/templates/datasources.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monitoring-loki-stack
+  namespace: default
+  labels:
+    app: loki-stack
+    chart: loki-stack-2.5.0
+    release: monitoring
+    heritage: Helm
+    grafana_datasource: "1"
+data:
+  loki-stack-datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://monitoring-loki:3100
+      version: 1
+---
+# Source: kube-prometheus-stack/charts/loki-stack/templates/tests/loki-test-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monitoring-loki-stack-test
+  labels:
+    app: loki-stack
+    chart: loki-stack-2.5.0
+    release: monitoring
+    heritage: Helm
+data:
+  test.sh: |
+    #!/usr/bin/env bash
+
+    LOKI_URI="http://${LOKI_SERVICE}:${LOKI_PORT}"
+
+    function setup() {
+      apk add -u curl jq
+      until (curl -s ${LOKI_URI}/api/prom/label/app/values | jq -e '.values[] | select(. == "loki")'); do
+        sleep 1
+      done
+    }
+
+    @test "Has labels" {
+      curl -s ${LOKI_URI}/api/prom/label | \
+      jq -e '.values[] | select(. == "app")'
+    }
+
+    @test "Query log entry" {
+      curl -sG ${LOKI_URI}/api/prom/query?limit=10 --data-urlencode 'query={app="loki"}' | \
+      jq -e '.streams[].entries | length >= 1'
+    }
+
+    @test "Push log entry legacy" {
+      local timestamp=$(date -Iseconds -u | sed 's/UTC/.000000000+00:00/')
+      local data=$(jq -n --arg timestamp "${timestamp}" '{"streams": [{"labels": "{app=\"loki-test\"}", "entries": [{"ts": $timestamp, "line": "foobar"}]}]}')
+
+      curl -s -X POST -H "Content-Type: application/json" ${LOKI_URI}/api/prom/push -d "${data}"
+
+      curl -sG ${LOKI_URI}/api/prom/query?limit=1 --data-urlencode 'query={app="loki-test"}' | \
+      jq -e '.streams[].entries[].line == "foobar"'
+    }
+
+    @test "Push log entry" {
+      local timestamp=$(date +%s000000000)
+      local data=$(jq -n --arg timestamp "${timestamp}" '{"streams": [{"stream": {"app": "loki-test"}, "values": [[$timestamp, "foobar"]]}]}')
+
+      curl -s -X POST -H "Content-Type: application/json" ${LOKI_URI}/loki/api/v1/push -d "${data}"
+
+      curl -sG ${LOKI_URI}/api/prom/query?limit=1 --data-urlencode 'query={app="loki-test"}' | \
+      jq -e '.streams[].entries[].line == "foobar"'
+    }
+---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -38523,9 +38991,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -38610,9 +39078,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -38632,9 +39100,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -38666,9 +39134,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -38677,6 +39145,26 @@ rules:
   verbs:     ['use']
   resourceNames:
   - monitoring-kube-prometheus-prometheus
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/clusterrole.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    release: monitoring
+    heritage: Helm
+  name: monitoring-promtail-clusterrole
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "watch", "list"]
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/clusterrolebinding.yaml
 kind: ClusterRoleBinding
@@ -38772,9 +39260,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -38796,9 +39284,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -38820,9 +39308,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -38844,9 +39332,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -38857,6 +39345,25 @@ subjects:
   - kind: ServiceAccount
     name: monitoring-kube-prometheus-prometheus
     namespace: default
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/clusterrolebinding.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: monitoring-promtail-clusterrolebinding
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    release: monitoring
+    heritage: Helm
+subjects:
+  - kind: ServiceAccount
+    name: monitoring-promtail
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: monitoring-promtail-clusterrole
+  apiGroup: rbac.authorization.k8s.io
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -38905,9 +39412,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -38916,6 +39423,40 @@ rules:
   verbs:     ['use']
   resourceNames:
   - monitoring-kube-prometheus-alertmanager
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: monitoring-loki
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    heritage: Helm
+    release: monitoring
+rules:
+- apiGroups:      ['extensions']
+  resources:      ['podsecuritypolicies']
+  verbs:          ['use']
+  resourceNames:  [monitoring-loki]
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: monitoring-promtail
+  namespace: default
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    heritage: Helm
+    release: monitoring
+rules:
+- apiGroups:      ['extensions']
+  resources:      ['podsecuritypolicies']
+  verbs:          ['use']
+  resourceNames:  [monitoring-promtail]
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -38970,9 +39511,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -38983,6 +39524,44 @@ subjects:
   - kind: ServiceAccount
     name: monitoring-kube-prometheus-alertmanager
     namespace: default
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: monitoring-loki
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    heritage: Helm
+    release: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: monitoring-loki
+subjects:
+- kind: ServiceAccount
+  name: monitoring-loki
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: monitoring-promtail
+  namespace: default
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    heritage: Helm
+    release: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: monitoring-promtail
+subjects:
+- kind: ServiceAccount
+  name: monitoring-promtail
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/service.yaml
 apiVersion: v1
@@ -39073,9 +39652,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39100,9 +39679,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
   namespace: kube-system
@@ -39127,9 +39706,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
   namespace: kube-system
@@ -39155,9 +39734,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
   namespace: kube-system
@@ -39183,9 +39762,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
   namespace: kube-system
@@ -39211,9 +39790,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
   namespace: kube-system
@@ -39239,9 +39818,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39266,9 +39845,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39280,6 +39859,53 @@ spec:
     app.kubernetes.io/name: prometheus
     prometheus: monitoring-kube-prometheus-prometheus
   type: "ClusterIP"
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/service-headless.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitoring-loki-headless
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    release: monitoring
+    heritage: Helm
+    variant: headless
+spec:
+  clusterIP: None
+  ports:
+    - port: 3100
+      protocol: TCP
+      name: http-metrics
+      targetPort: http-metrics
+  selector:
+    app: loki
+    release: monitoring
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitoring-loki
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    release: monitoring
+    heritage: Helm
+  annotations:
+    {}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3100
+      protocol: TCP
+      name: http-metrics
+      targetPort: http-metrics
+  selector:
+    app: loki
+    release: monitoring
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/daemonset.yaml
 apiVersion: apps/v1
@@ -39374,6 +40000,100 @@ spec:
         - name: root
           hostPath:
             path: /
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-promtail
+  namespace: default
+  labels:
+    app: promtail
+    chart: promtail-2.2.0
+    release: monitoring
+    heritage: Helm
+  annotations:
+    {}
+spec:
+  selector:
+    matchLabels:
+      app: promtail
+      release: monitoring
+  updateStrategy:
+    {}
+  template:
+    metadata:
+      labels:
+        app: promtail
+        release: monitoring
+      annotations:
+        checksum/config: 73a3119a0ff1686226378f5ee00506f56f194c31faf7270cbe48b5dc88f0bfbe
+        prometheus.io/port: http-metrics
+        prometheus.io/scrape: "true"
+    spec:
+      serviceAccountName: monitoring-promtail
+      containers:
+        - name: promtail
+          image: "grafana/promtail:2.1.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "-config.file=/etc/promtail/promtail.yaml"
+            - "-client.url=http://monitoring-loki:3100/loki/api/v1/push"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/promtail
+            - name: run
+              mountPath: /run/promtail
+            - mountPath: /var/lib/docker/containers
+              name: docker
+              readOnly: true
+            - mountPath: /var/log/pods
+              name: pods
+              readOnly: true
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          ports:
+            - containerPort: 3101
+              name: http-metrics
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsUser: 0
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /ready
+              port: http-metrics
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            {}
+      nodeSelector:
+        {}
+      affinity:
+        {}
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+      volumes:
+        - name: config
+          configMap:
+            name: monitoring-promtail
+        - name: run
+          hostPath:
+            path: /run/promtail
+        - hostPath:
+            path: /var/lib/docker/containers
+          name: docker
+        - hostPath:
+            path: /var/log/pods
+          name: pods
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/deployment.yaml
 apiVersion: apps/v1
@@ -39594,9 +40314,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39612,20 +40332,20 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: monitoring
-        app.kubernetes.io/version: "23.1.3"
+        app.kubernetes.io/version: "23.1.6"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-23.1.3
+        chart: kube-prometheus-stack-23.1.6
         release: "monitoring"
         heritage: "Helm"
     spec:
       containers:
         - name: kube-prometheus-stack
-          image: "quay.io/prometheus-operator/prometheus-operator:v0.52.0"
+          image: "quay.io/prometheus-operator/prometheus-operator:v0.52.1"
           imagePullPolicy: "IfNotPresent"
           args:
             - --kubelet-service=kube-system/monitoring-kube-prometheus-kubelet
             - --localhost=127.0.0.1
-            - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.52.0
+            - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.52.1
             - --config-reloader-cpu-request=100m
             - --config-reloader-cpu-limit=100m
             - --config-reloader-memory-request=50Mi
@@ -39659,6 +40379,93 @@ spec:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: monitoring-kube-prometheus-operator
+---
+# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: monitoring-loki
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    release: monitoring
+    heritage: Helm
+  annotations:
+    {}
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+      release: monitoring
+  serviceName: monitoring-loki-headless
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: loki
+        name: loki
+        release: monitoring
+      annotations:
+        checksum/config: 80dc9a6b396c2abd0e10d2ca77c63f5c0f4c21aea70182b8ca9df359c2a6aa58
+        prometheus.io/port: http-metrics
+        prometheus.io/scrape: "true"
+    spec:
+      serviceAccountName: monitoring-loki
+      securityContext:
+        fsGroup: 10001
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
+      initContainers:
+        []
+      containers:
+        - name: loki
+          image: "grafana/loki:2.3.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "-config.file=/etc/loki/loki.yaml"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/loki
+            - name: storage
+              mountPath: "/data"
+              subPath: 
+          ports:
+            - name: http-metrics
+              containerPort: 3100
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: http-metrics
+            initialDelaySeconds: 45
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http-metrics
+            initialDelaySeconds: 45
+          resources:
+            {}
+          securityContext:
+            readOnlyRootFilesystem: true
+          env:
+      nodeSelector:
+        {}
+      affinity:
+        {}
+      tolerations:
+        []
+      terminationGracePeriodSeconds: 4800
+      volumes:
+        - name: config
+          secret:
+            secretName: monitoring-loki
+        - name: storage
+          emptyDir: {}
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -39704,9 +40511,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39739,9 +40546,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39772,9 +40579,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39796,6 +40603,7 @@ spec:
     runAsGroup: 2000
     runAsNonRoot: true
     runAsUser: 1000
+  portName: http-web
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -39806,9 +40614,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 webhooks:
@@ -39843,9 +40651,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -39908,9 +40716,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40051,9 +40859,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40185,9 +40993,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40233,9 +41041,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40390,9 +41198,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40512,9 +41320,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40834,9 +41642,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40877,9 +41685,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -40954,9 +41762,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41306,9 +42114,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41331,9 +42139,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41364,9 +42172,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41421,9 +42229,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41490,9 +42298,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41523,9 +42331,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41772,9 +42580,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41901,9 +42709,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -41965,9 +42773,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42037,9 +42845,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42067,9 +42875,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42208,9 +43016,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42238,9 +43046,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42281,9 +43089,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42354,9 +43162,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42602,9 +43410,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42632,9 +43440,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42677,9 +43485,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -42761,9 +43569,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43006,9 +43814,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43035,9 +43843,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43064,9 +43872,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43098,9 +43906,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43127,9 +43935,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43156,9 +43964,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43185,9 +43993,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43214,9 +44022,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43239,9 +44047,9 @@ metadata:
     app: kube-prometheus-stack-kubelet    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43301,9 +44109,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43326,9 +44134,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43351,9 +44159,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43387,9 +44195,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43414,9 +44222,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 webhooks:
@@ -43453,9 +44261,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43510,9 +44318,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 ---
@@ -43528,9 +44336,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -43560,9 +44368,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -43587,9 +44395,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 rules:
@@ -43614,9 +44422,9 @@ metadata:
     app: kube-prometheus-stack-admission    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 roleRef:
@@ -43659,6 +44467,38 @@ spec:
       name: monitoring-grafana-test
   restartPolicy: Never
 ---
+# Source: kube-prometheus-stack/charts/loki-stack/templates/tests/loki-test-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    "helm.sh/hook": test-success
+  labels:
+    app: loki-stack
+    chart: loki-stack-2.5.0
+    release: monitoring
+    heritage: Helm
+  name: monitoring-loki-stack-test
+spec:
+  containers:
+  - name: test
+    image: bats/bats:v1.1.0
+    args:
+    - /var/lib/loki/test.sh
+    env:
+    - name: LOKI_SERVICE
+      value: monitoring-loki
+    - name: LOKI_PORT
+      value: "3100"
+    volumeMounts:
+    - name: tests
+      mountPath: /var/lib/loki
+  restartPolicy: Never
+  volumes:
+  - name: tests
+    configMap:
+      name: monitoring-loki-stack-test
+---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
 apiVersion: batch/v1
 kind: Job
@@ -43672,9 +44512,9 @@ metadata:
     app: kube-prometheus-stack-admission-create    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43685,9 +44525,9 @@ spec:
         app: kube-prometheus-stack-admission-create        
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: monitoring
-        app.kubernetes.io/version: "23.1.3"
+        app.kubernetes.io/version: "23.1.6"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-23.1.3
+        chart: kube-prometheus-stack-23.1.6
         release: "monitoring"
         heritage: "Helm"
     spec:
@@ -43722,9 +44562,9 @@ metadata:
     app: kube-prometheus-stack-admission-patch    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "23.1.3"
+    app.kubernetes.io/version: "23.1.6"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-23.1.3
+    chart: kube-prometheus-stack-23.1.6
     release: "monitoring"
     heritage: "Helm"
 spec:
@@ -43735,9 +44575,9 @@ spec:
         app: kube-prometheus-stack-admission-patch        
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: monitoring
-        app.kubernetes.io/version: "23.1.3"
+        app.kubernetes.io/version: "23.1.6"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-23.1.3
+        chart: kube-prometheus-stack-23.1.6
         release: "monitoring"
         heritage: "Helm"
     spec:
