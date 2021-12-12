@@ -24,7 +24,7 @@ kube-prometheus-stack:
     additionalDataSources:
     - name: Loki
       type: loki
-      url: http://loki:3100
+      url: http://monitoring-loki.default.svc.cluster.local:3100
   prometheus:
     ingress:
       enabled: true
