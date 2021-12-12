@@ -1,0 +1,5 @@
+resources:
+- ./all.yaml
+
+patches:
+- use_replace_to_sync_prometheus.yaml
