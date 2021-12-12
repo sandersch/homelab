@@ -20,8 +20,6 @@ spec:
       source:
         repoURL: https://github.com/sandersch/homelab.git
         path: '{{path}}'
-        plugin:
-          name: "kustomized-helm"
       syncPolicy:
         automated:
           prune: true
