@@ -44,7 +44,8 @@ loki-stack:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
         - host: loki.worm.run
-          paths: ["/"]
+          paths: 
+          - path: "/"
       tls:
       - secretName: loki-general-tls
         hosts:
