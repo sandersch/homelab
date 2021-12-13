@@ -3,7 +3,7 @@ kube-prometheus-stack:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/clusterissuer: "letsencrypt-prod"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
       - alertmanager.worm.run
       tls:
@@ -14,7 +14,7 @@ kube-prometheus-stack:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/clusterissuer: "letsencrypt-prod"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
       - grafana.worm.run
       tls:
@@ -29,7 +29,7 @@ kube-prometheus-stack:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/clusterissuer: "letsencrypt-prod"
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
       - prometheus.worm.run
       tls:
