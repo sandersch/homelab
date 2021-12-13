@@ -3,7 +3,7 @@ kube-prometheus-stack:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        cert-manager.io/clusterissuer: "letsencrypt-prod"
       hosts:
       - alertmanager.worm.run
       tls:
@@ -14,7 +14,7 @@ kube-prometheus-stack:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        cert-manager.io/clusterissuer: "letsencrypt-prod"
       hosts:
       - grafana.worm.run
       tls:
@@ -24,27 +24,15 @@ kube-prometheus-stack:
     additionalDataSources:
     - name: Loki
       type: loki
-      url: http://monitoring-loki:3100
+      url: http://monitoring-loki.default.svc.cluster.local:3100
   prometheus:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        cert-manager.io/clusterissuer: "letsencrypt-prod"
       hosts:
       - prometheus.worm.run
       tls:
       - secretName: prometheus-general-tls
         hosts:
         - prometheus.worm.run
-loki-stack:
-  loki:
-    ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
-      hosts:
-      - host: loki.worm.run
-      tls:
-      - secretName: loki-tls-certificate
-        hosts:
-        - loki.worm.run
