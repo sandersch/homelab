@@ -36,3 +36,15 @@ kube-prometheus-stack:
       - secretName: prometheus-general-tls
         hosts:
         - prometheus.worm.run
+loki-stack:
+  loki:
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - host: loki.worm.run
+      tls:
+      - secretName: loki-tls-certificate
+        hosts:
+        - loki.worm.run

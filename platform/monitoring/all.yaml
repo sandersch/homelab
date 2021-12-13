@@ -1,5 +1,5 @@
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/podsecuritypolicy.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/podsecuritypolicy.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -50,7 +50,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-podsecuritypolicy.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-podsecuritypolicy.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -83,7 +83,7 @@ spec:
   - csi
   - secret
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/podsecuritypolicy.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/podsecuritypolicy.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -121,7 +121,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/psp.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/psp.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -176,7 +176,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/psp.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/psp.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -230,7 +230,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/psp.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/psp.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -284,7 +284,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/psp.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/psp.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -338,7 +338,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/podsecuritypolicy.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/podsecuritypolicy.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -379,7 +379,7 @@ spec:
   requiredDropCapabilities:
     - ALL
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/podsecuritypolicy.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/podsecuritypolicy.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -414,7 +414,7 @@ spec:
   - downwardAPI
   - emptyDir
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -427,7 +427,7 @@ metadata:
   name: monitoring-grafana
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -440,7 +440,7 @@ metadata:
   name: monitoring-grafana-test
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -457,7 +457,7 @@ metadata:
 imagePullSecrets:
   []
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -473,7 +473,7 @@ metadata:
 imagePullSecrets:
   []
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -492,7 +492,7 @@ metadata:
     release: "monitoring"
     heritage: "Helm"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -511,7 +511,7 @@ metadata:
     release: "monitoring"
     heritage: "Helm"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -530,7 +530,7 @@ metadata:
     release: "monitoring"
     heritage: "Helm"
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/serviceaccount.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -545,7 +545,7 @@ metadata:
   namespace: default
 automountServiceAccountToken: true
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/serviceaccount.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -557,7 +557,7 @@ metadata:
   name: monitoring-promtail
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/secret.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -575,7 +575,7 @@ data:
   admin-password: "cHJvbS1vcGVyYXRvcg=="
   ldap-toml: ""
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/secret.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -594,7 +594,7 @@ metadata:
 data:
   alertmanager.yaml: "Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogNW0KcmVjZWl2ZXJzOgotIG5hbWU6ICJudWxsIgpyb3V0ZToKICBncm91cF9ieToKICAtIGpvYgogIGdyb3VwX2ludGVydmFsOiA1bQogIGdyb3VwX3dhaXQ6IDMwcwogIHJlY2VpdmVyOiAibnVsbCIKICByZXBlYXRfaW50ZXJ2YWw6IDEyaAogIHJvdXRlczoKICAtIG1hdGNoOgogICAgICBhbGVydG5hbWU6IFdhdGNoZG9nCiAgICByZWNlaXZlcjogIm51bGwiCnRlbXBsYXRlczoKLSAvZXRjL2FsZXJ0bWFuYWdlci9jb25maWcvKi50bXBs"
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/secret.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -608,7 +608,7 @@ metadata:
 data:
   loki.yaml: YXV0aF9lbmFibGVkOiBmYWxzZQpjaHVua19zdG9yZV9jb25maWc6CiAgbWF4X2xvb2tfYmFja19wZXJpb2Q6IDBzCmNvbXBhY3RvcjoKICBzaGFyZWRfc3RvcmU6IGZpbGVzeXN0ZW0KICB3b3JraW5nX2RpcmVjdG9yeTogL2RhdGEvbG9raS9ib2x0ZGItc2hpcHBlci1jb21wYWN0b3IKaW5nZXN0ZXI6CiAgY2h1bmtfYmxvY2tfc2l6ZTogMjYyMTQ0CiAgY2h1bmtfaWRsZV9wZXJpb2Q6IDNtCiAgY2h1bmtfcmV0YWluX3BlcmlvZDogMW0KICBsaWZlY3ljbGVyOgogICAgcmluZzoKICAgICAga3ZzdG9yZToKICAgICAgICBzdG9yZTogaW5tZW1vcnkKICAgICAgcmVwbGljYXRpb25fZmFjdG9yOiAxCiAgbWF4X3RyYW5zZmVyX3JldHJpZXM6IDAKbGltaXRzX2NvbmZpZzoKICBlbmZvcmNlX21ldHJpY19uYW1lOiBmYWxzZQogIHJlamVjdF9vbGRfc2FtcGxlczogdHJ1ZQogIHJlamVjdF9vbGRfc2FtcGxlc19tYXhfYWdlOiAxNjhoCnNjaGVtYV9jb25maWc6CiAgY29uZmlnczoKICAtIGZyb206ICIyMDIwLTEwLTI0IgogICAgaW5kZXg6CiAgICAgIHBlcmlvZDogMjRoCiAgICAgIHByZWZpeDogaW5kZXhfCiAgICBvYmplY3Rfc3RvcmU6IGZpbGVzeXN0ZW0KICAgIHNjaGVtYTogdjExCiAgICBzdG9yZTogYm9sdGRiLXNoaXBwZXIKc2VydmVyOgogIGh0dHBfbGlzdGVuX3BvcnQ6IDMxMDAKc3RvcmFnZV9jb25maWc6CiAgYm9sdGRiX3NoaXBwZXI6CiAgICBhY3RpdmVfaW5kZXhfZGlyZWN0b3J5OiAvZGF0YS9sb2tpL2JvbHRkYi1zaGlwcGVyLWFjdGl2ZQogICAgY2FjaGVfbG9jYXRpb246IC9kYXRhL2xva2kvYm9sdGRiLXNoaXBwZXItY2FjaGUKICAgIGNhY2hlX3R0bDogMjRoCiAgICBzaGFyZWRfc3RvcmU6IGZpbGVzeXN0ZW0KICBmaWxlc3lzdGVtOgogICAgZGlyZWN0b3J5OiAvZGF0YS9sb2tpL2NodW5rcwp0YWJsZV9tYW5hZ2VyOgogIHJldGVudGlvbl9kZWxldGVzX2VuYWJsZWQ6IGZhbHNlCiAgcmV0ZW50aW9uX3BlcmlvZDogMHM=
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/configmap-dashboard-provider.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/configmap-dashboard-provider.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -635,7 +635,7 @@ data:
         foldersFromFilesStructure: false
         path: /tmp/dashboards
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/configmap.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -661,7 +661,7 @@ data:
     plugins = /var/lib/grafana/plugins
     provisioning = /etc/grafana/provisioning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-configmap.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -682,7 +682,7 @@ data:
       [ "$code" == "200" ]
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/configmaps-datasources.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/configmaps-datasources.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -714,7 +714,7 @@ data:
       type: loki
       url: http://monitoring-loki:3100
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/alertmanager-overview.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/alertmanager-overview.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -1323,7 +1323,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/apiserver.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/apiserver.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -3069,7 +3069,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/cluster-total.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/cluster-total.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -4950,7 +4950,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/controller-manager.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/controller-manager.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6126,7 +6126,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/etcd.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/etcd.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7241,7 +7241,7 @@ data:
         "version": 215
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-coredns.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-coredns.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8775,7 +8775,7 @@ data:
       "version": 2
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-cluster.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-cluster.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -11798,7 +11798,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-namespace.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-namespace.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -14541,7 +14541,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-node.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-node.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -15518,7 +15518,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-pod.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-pod.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -17944,7 +17944,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-workload.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-workload.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -19929,7 +19929,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-workloads-namespace.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/k8s-resources-workloads-namespace.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -22079,7 +22079,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/kubelet.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/kubelet.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -24332,7 +24332,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/namespace-by-pod.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/namespace-by-pod.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -25795,7 +25795,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/namespace-by-workload.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/namespace-by-workload.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -27530,7 +27530,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/node-cluster-rsrc-use.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/node-cluster-rsrc-use.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -28592,7 +28592,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/node-rsrc-use.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/node-rsrc-use.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -29680,7 +29680,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/nodes.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/nodes.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -30670,7 +30670,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/persistentvolumesusage.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/persistentvolumesusage.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -31246,7 +31246,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/pod-total.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/pod-total.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -32473,7 +32473,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/prometheus.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/prometheus.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -33707,7 +33707,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/proxy.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/proxy.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -34963,7 +34963,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/scheduler.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/scheduler.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -36062,7 +36062,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/statefulset.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/statefulset.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -36989,7 +36989,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/workload-total.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/workload-total.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38426,7 +38426,7 @@ data:
         "version": 0
     }
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/configmap.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38702,7 +38702,7 @@ data:
         - __meta_kubernetes_pod_container_name
         target_label: __path__
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/templates/datasources.yaml
+# Source: monitoring/charts/loki-stack/templates/datasources.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38724,7 +38724,7 @@ data:
       url: http://monitoring-loki:3100
       version: 1
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/templates/tests/loki-test-configmap.yaml
+# Source: monitoring/charts/loki-stack/templates/tests/loki-test-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38777,7 +38777,7 @@ data:
       jq -e '.streams[].entries[].line == "foobar"'
     }
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -38793,7 +38793,7 @@ rules:
   resources: ["configmaps", "secrets"]
   verbs: ["get", "watch", "list"]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/psp-clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/psp-clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -38813,7 +38813,7 @@ rules:
   resourceNames:
   - monitoring-kube-state-metrics
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/role.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -38963,7 +38963,7 @@ rules:
     - volumeattachments
   verbs: ["list", "watch"]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/psp-clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/psp-clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -38981,7 +38981,7 @@ rules:
   resourceNames:
   - monitoring-prometheus-node-exporter
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -39068,7 +39068,7 @@ rules:
   - list
   - watch
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/psp-clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/psp-clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39090,7 +39090,7 @@ rules:
   resourceNames:
   - monitoring-kube-prometheus-operator
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -39124,7 +39124,7 @@ rules:
 - nonResourceURLs: ["/metrics", "/metrics/cadvisor"]
   verbs: ["get"]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/psp-clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/psp-clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39146,7 +39146,7 @@ rules:
   resourceNames:
   - monitoring-kube-prometheus-prometheus
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/clusterrole.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39166,7 +39166,7 @@ rules:
   - pods
   verbs: ["get", "watch", "list"]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/clusterrolebinding.yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39186,7 +39186,7 @@ roleRef:
   name: monitoring-grafana-clusterrole
   apiGroup: rbac.authorization.k8s.io
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -39208,7 +39208,7 @@ subjects:
   name: monitoring-kube-state-metrics
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/psp-clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/psp-clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -39230,7 +39230,7 @@ subjects:
     name: monitoring-kube-state-metrics
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/psp-clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/psp-clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -39250,7 +39250,7 @@ subjects:
     name: monitoring-prometheus-node-exporter
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -39274,7 +39274,7 @@ subjects:
   name: monitoring-kube-prometheus-operator
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/psp-clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/psp-clusterrolebinding.yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39298,7 +39298,7 @@ subjects:
     name: monitoring-kube-prometheus-operator
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -39322,7 +39322,7 @@ subjects:
     name: monitoring-kube-prometheus-prometheus
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/psp-clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/psp-clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -39346,7 +39346,7 @@ subjects:
     name: monitoring-kube-prometheus-prometheus
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/clusterrolebinding.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/clusterrolebinding.yaml
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39365,7 +39365,7 @@ roleRef:
   name: monitoring-promtail-clusterrole
   apiGroup: rbac.authorization.k8s.io
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/role.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -39383,7 +39383,7 @@ rules:
   verbs:          ['use']
   resourceNames:  [monitoring-grafana]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-role.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -39401,7 +39401,7 @@ rules:
   verbs:          ['use']
   resourceNames:  [monitoring-grafana-test]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/psp-role.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/psp-role.yaml
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39424,7 +39424,7 @@ rules:
   resourceNames:
   - monitoring-kube-prometheus-alertmanager
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/role.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -39441,7 +39441,7 @@ rules:
   verbs:          ['use']
   resourceNames:  [monitoring-loki]
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/role.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -39458,7 +39458,7 @@ rules:
   verbs:          ['use']
   resourceNames:  [monitoring-promtail]
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/rolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -39479,7 +39479,7 @@ subjects:
   name: monitoring-grafana
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-rolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/tests/test-rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -39500,7 +39500,7 @@ subjects:
   name: monitoring-grafana-test
   namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/psp-rolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/psp-rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -39525,7 +39525,7 @@ subjects:
     name: monitoring-kube-prometheus-alertmanager
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/rolebinding.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -39544,7 +39544,7 @@ subjects:
 - kind: ServiceAccount
   name: monitoring-loki
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/rolebinding.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -39563,7 +39563,7 @@ subjects:
 - kind: ServiceAccount
   name: monitoring-promtail
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39587,7 +39587,7 @@ spec:
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: monitoring
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39615,7 +39615,7 @@ spec:
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: monitoring
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39640,7 +39640,7 @@ spec:
     app: prometheus-node-exporter
     release: monitoring
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39668,7 +39668,7 @@ spec:
     alertmanager: monitoring-kube-prometheus-alertmanager
   type: "ClusterIP"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/core-dns/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/core-dns/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39695,7 +39695,7 @@ spec:
   selector:
     k8s-app: kube-dns
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-controller-manager/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-controller-manager/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39723,7 +39723,7 @@ spec:
     component: kube-controller-manager
   type: ClusterIP
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-etcd/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-etcd/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39751,7 +39751,7 @@ spec:
     component: etcd
   type: ClusterIP
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-proxy/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-proxy/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39779,7 +39779,7 @@ spec:
     k8s-app: kube-proxy
   type: ClusterIP
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-scheduler/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-scheduler/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39807,7 +39807,7 @@ spec:
     component: kube-scheduler
   type: ClusterIP
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39833,7 +39833,7 @@ spec:
     release: "monitoring"
   type: "ClusterIP"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/service.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39860,7 +39860,7 @@ spec:
     prometheus: monitoring-kube-prometheus-prometheus
   type: "ClusterIP"
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/service-headless.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/service-headless.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39883,7 +39883,7 @@ spec:
     app: loki
     release: monitoring
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/service.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -39907,7 +39907,7 @@ spec:
     app: loki
     release: monitoring
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/daemonset.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/prometheus-node-exporter/templates/daemonset.yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -40001,7 +40001,7 @@ spec:
           hostPath:
             path: /
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/promtail/templates/daemonset.yaml
+# Source: monitoring/charts/loki-stack/charts/promtail/templates/daemonset.yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -40095,7 +40095,7 @@ spec:
             path: /var/log/pods
           name: pods
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/deployment.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40242,7 +40242,7 @@ spec:
         - name: sc-datasources-volume
           emptyDir: {}
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/deployment.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/kube-state-metrics/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40303,7 +40303,7 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 5
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/deployment.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40380,7 +40380,7 @@ spec:
         runAsUser: 65534
       serviceAccountName: monitoring-kube-prometheus-operator
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/charts/loki/templates/statefulset.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/statefulset.yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -40467,7 +40467,7 @@ spec:
         - name: storage
           emptyDir: {}
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/ingress.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -40498,7 +40498,7 @@ spec:
                 port:
                   number: 80
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/ingress.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -40533,7 +40533,7 @@ spec:
       - alertmanager.worm.run
       secretName: alertmanager-general-tls
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/ingress.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -40568,7 +40568,30 @@ spec:
       - prometheus.worm.run
       secretName: prometheus-general-tls
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/alertmanager.yaml
+# Source: monitoring/charts/loki-stack/charts/loki/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: monitoring-loki
+  namespace: default
+  labels:
+    app: loki
+    chart: loki-2.6.0
+    release: monitoring
+    heritage: Helm
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - "loki.worm.run"
+      secretName: loki-tls-certificate
+  rules:
+    - host: "loki.worm.run"
+      http:
+        paths:
+---
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/alertmanager.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: Alertmanager
 metadata:
@@ -40605,7 +40628,7 @@ spec:
     runAsUser: 1000
   portName: http-web
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -40640,7 +40663,7 @@ webhooks:
     admissionReviewVersions: ["v1", "v1beta1"]
     sideEffects: None
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/prometheus.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/prometheus.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
@@ -40705,7 +40728,7 @@ spec:
 
   portName: http-web
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/alertmanager.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/alertmanager.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -40848,7 +40871,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/etcd.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/etcd.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -40982,7 +41005,7 @@ spec:
       labels:
         severity: warning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/general.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/general.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -41030,7 +41053,7 @@ spec:
       labels:
         severity: none
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/k8s.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/k8s.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -41187,7 +41210,7 @@ spec:
         workload_type: statefulset
       record: namespace_workload_pod:kube_pod_owner:relabel
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-availability.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-availability.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -41309,7 +41332,7 @@ spec:
     - expr: sum by (cluster, code, verb) (increase(apiserver_request_total{job="apiserver",verb=~"LIST|GET|POST|PUT|PATCH|DELETE",code=~"5.."}[1h]))
       record: code_verb:apiserver_request_total:increase1h
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-burnrate.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-burnrate.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -41631,7 +41654,7 @@ spec:
         verb: write
       record: apiserver_request:burnrate6h
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-histogram.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-histogram.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -41674,7 +41697,7 @@ spec:
         quantile: '0.5'
       record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-slos.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver-slos.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -41751,7 +41774,7 @@ spec:
         severity: warning
         short: 6h
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-apiserver.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42103,7 +42126,7 @@ spec:
         quantile: '0.5'
       record: cluster_quantile:apiserver_request_duration_seconds:histogram_quantile
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-prometheus-general.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-prometheus-general.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42128,7 +42151,7 @@ spec:
     - expr: count without(instance, pod, node) (up == 0)
       record: count:up0
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-prometheus-node-recording.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-prometheus-node-recording.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42161,7 +42184,7 @@ spec:
     - expr: cluster:node_cpu_seconds_total:rate5m / count(sum(node_cpu_seconds_total) BY (instance, cpu))
       record: cluster:node_cpu:ratio
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-scheduler.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-scheduler.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42218,7 +42241,7 @@ spec:
         quantile: '0.5'
       record: cluster_quantile:scheduler_binding_duration_seconds:histogram_quantile
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-state-metrics.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kube-state-metrics.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42287,7 +42310,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubelet.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubelet.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42320,7 +42343,7 @@ spec:
         quantile: '0.5'
       record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-apps.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-apps.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42569,7 +42592,7 @@ spec:
       labels:
         severity: warning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-resources.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-resources.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42698,7 +42721,7 @@ spec:
       labels:
         severity: info
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-storage.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-storage.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42762,7 +42785,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-apiserver.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-apiserver.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42834,7 +42857,7 @@ spec:
       labels:
         severity: warning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-controller-manager.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-controller-manager.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -42864,7 +42887,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-kubelet.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-kubelet.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43005,7 +43028,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-scheduler.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system-scheduler.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43035,7 +43058,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/kubernetes-system.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43078,7 +43101,7 @@ spec:
       labels:
         severity: warning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node-exporter.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node-exporter.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43151,7 +43174,7 @@ spec:
         )
       record: instance:node_network_transmit_drop_excluding_lo:rate5m
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node-exporter.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node-exporter.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43399,7 +43422,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node-network.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node-network.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43429,7 +43452,7 @@ spec:
       labels:
         severity: warning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node.rules.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/node.rules.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43474,7 +43497,7 @@ spec:
         ) by (cluster)
       record: :node_memory_MemAvailable_bytes:sum
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/prometheus-operator.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/prometheus-operator.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43558,7 +43581,7 @@ spec:
       labels:
         severity: warning
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/prometheus.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/rules-1.14/prometheus.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -43803,7 +43826,7 @@ spec:
       labels:
         severity: critical
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/alertmanager/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -43832,7 +43855,7 @@ spec:
   - port: http-web
     path: "/metrics"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/core-dns/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/core-dns/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -43861,7 +43884,7 @@ spec:
   - port: http-metrics
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-api-server/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-api-server/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -43895,7 +43918,7 @@ spec:
       component: apiserver
       provider: kubernetes
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-controller-manager/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-controller-manager/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -43924,7 +43947,7 @@ spec:
   - port: http-metrics
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-etcd/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-etcd/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -43953,7 +43976,7 @@ spec:
   - port: http-metrics
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-proxy/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-proxy/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -43982,7 +44005,7 @@ spec:
   - port: http-metrics
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-scheduler/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-scheduler/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44011,7 +44034,7 @@ spec:
   - port: http-metrics
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kube-state-metrics/serviceMonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kube-state-metrics/serviceMonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44037,7 +44060,7 @@ spec:
       app.kubernetes.io/name: kube-state-metrics
       app.kubernetes.io/instance: "monitoring"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/kubelet/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/kubelet/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44098,7 +44121,7 @@ spec:
       app.kubernetes.io/name: kubelet
       k8s-app: kubelet
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/exporters/node-exporter/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/exporters/node-exporter/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44123,7 +44146,7 @@ spec:
   endpoints:
   - port: http-metrics
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/grafana/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44148,7 +44171,7 @@ spec:
   - port: http-web
     path: "/metrics"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44184,7 +44207,7 @@ spec:
     matchNames:
       - "default"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus/servicemonitor.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -44213,7 +44236,7 @@ spec:
   - port: http-web
     path: "/metrics"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/validatingWebhookConfiguration.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/validatingWebhookConfiguration.yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
@@ -44248,7 +44271,7 @@ webhooks:
     admissionReviewVersions: ["v1", "v1beta1"]
     sideEffects: None
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/psp.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/psp.yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -44305,7 +44328,7 @@ spec:
         max: 65535
   readOnlyRootFilesystem: false
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/serviceaccount.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -44324,7 +44347,7 @@ metadata:
     release: "monitoring"
     heritage: "Helm"
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/clusterrole.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -44356,7 +44379,7 @@ rules:
     resourceNames:
     - monitoring-kube-prometheus-admission
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/clusterrolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -44382,7 +44405,7 @@ subjects:
     name: monitoring-kube-prometheus-admission
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/role.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -44409,7 +44432,7 @@ rules:
       - get
       - create
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/rolebinding.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -44436,7 +44459,7 @@ subjects:
     name: monitoring-kube-prometheus-admission
     namespace: default
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/charts/grafana/templates/tests/test.yaml
+# Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/tests/test.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -44467,7 +44490,7 @@ spec:
       name: monitoring-grafana-test
   restartPolicy: Never
 ---
-# Source: kube-prometheus-stack/charts/loki-stack/templates/tests/loki-test-pod.yaml
+# Source: monitoring/charts/loki-stack/templates/tests/loki-test-pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -44499,7 +44522,7 @@ spec:
     configMap:
       name: monitoring-loki-stack-test
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -44549,7 +44572,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 2000
 ---
-# Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
+# Source: monitoring/charts/kube-prometheus-stack/templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
