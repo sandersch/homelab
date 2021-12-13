@@ -712,7 +712,7 @@ data:
         timeInterval: 30s
     - name: Loki
       type: loki
-      url: http://monitoring-loki.default.svc.cluster.local:3100
+      url: http://monitoring-loki:3100
 ---
 # Source: kube-prometheus-stack/charts/kube-prometheus-stack/templates/grafana/dashboards-1.14/alertmanager-overview.yaml
 apiVersion: v1
@@ -40480,7 +40480,7 @@ metadata:
     app.kubernetes.io/version: "8.3.1"
     app.kubernetes.io/managed-by: Helm
   annotations:
-    cert-manager.io/clusterissuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
     - hosts:
@@ -40505,7 +40505,7 @@ metadata:
   name: monitoring-kube-prometheus-alertmanager
   namespace: default
   annotations:
-    cert-manager.io/clusterissuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
     app: kube-prometheus-stack-alertmanager
     
@@ -40538,7 +40538,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/clusterissuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   name: monitoring-kube-prometheus-prometheus
   namespace: default
   labels:
