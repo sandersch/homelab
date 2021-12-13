@@ -40590,7 +40590,7 @@ spec:
     - host: "loki.worm.run"
       http:
         paths:
-          - path: map[path:/]
+          - path: /
             backend:
               serviceName: monitoring-loki
               servicePort: 3100
