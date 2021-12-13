@@ -40568,33 +40568,6 @@ spec:
       - prometheus.worm.run
       secretName: prometheus-general-tls
 ---
-# Source: monitoring/charts/loki-stack/charts/loki/templates/ingress.yaml
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: monitoring-loki
-  namespace: default
-  labels:
-    app: loki
-    chart: loki-2.6.0
-    release: monitoring
-    heritage: Helm
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-spec:
-  tls:
-    - hosts:
-        - "loki.worm.run"
-      secretName: loki-general-tls
-  rules:
-    - host: "loki.worm.run"
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: monitoring-loki
-              servicePort: 3100
----
 # Source: monitoring/charts/kube-prometheus-stack/templates/alertmanager/alertmanager.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: Alertmanager
