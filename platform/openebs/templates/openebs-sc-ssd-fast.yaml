@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ssd-fast
+allowVolumeExpansion: true
+parameters:
+  recordsize: "4k"
+  compression: "off"
+  dedup: "off"
+  fstype: "zfs"
+  poolname: "fast-pool"
+provisioner: zfs.csi.openebs.io
+reclaimPolicy: Delete
