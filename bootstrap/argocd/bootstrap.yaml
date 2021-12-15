@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bootstrap
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/sandersch/homelab.git
+      revision: master
+      directories:
+      - path: bootstrap/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      destination:
+        name: in-cluster
+      project: default
+      source:
+        repoURL: https://github.com/sandersch/homelab.git
+        path: '{{path}}'
+      syncPolicy:
+        automated:
+          selfHeal: true

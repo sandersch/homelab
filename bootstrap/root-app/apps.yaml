@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/sandersch/homelab.git
+      revision: master
+      directories:
+      - path: apps/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      destination:
+        name: in-cluster
+        namespace: '{{path.basename}}'
+      project: default
+      source:
+        repoURL: https://github.com/sandersch/homelab.git
+        path: '{{path}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
