@@ -13,9 +13,14 @@ radarr:
       - secretName: radarr-tls-certificate
         hosts:
         - radarr.worm.run
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
   persistence:
     config:
       enabled: true
+      existingClaim: radarr-config-zfs
     media:
       enabled: true
       type: hostPath
