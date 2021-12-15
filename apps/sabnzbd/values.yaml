@@ -16,6 +16,7 @@ sabnzbd:
   persistence:
     config:
       enabled: true
+      setPermissions: true
       existingClaim: sabnzbd-config-zfs
     downloads:
       enabled: true
