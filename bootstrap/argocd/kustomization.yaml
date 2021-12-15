@@ -9,11 +9,11 @@ resources:
 - namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml # TODO switch back to stable
 - https://raw.githubusercontent.com/argoproj-labs/applicationset/master/manifests/install.yaml # TODO switch back to stable
-- argocd-cm.yaml
 - ingress.yaml
 - bootstrap.yaml
 
 patches:
 - path: argocd-server-deployment-patch.yaml
+- path: argocd-cm.yaml
 
 namespace: argocd
