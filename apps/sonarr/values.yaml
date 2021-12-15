@@ -20,7 +20,7 @@ sonarr:
   persistence:
     config:
       enabled: true
-      existingClaim: sabnzbd-config-zfs
+      existingClaim: sonarr-config-zfs
     media:
       enabled: true
       type: hostPath
