@@ -26,6 +26,15 @@ kube-prometheus-stack:
       type: loki
       url: http://monitoring-loki.default.svc.cluster.local:3100
   prometheus:
+    prometheusSpec:
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 50Gi
+            storageClassName: nvme0
     ingress:
       enabled: true
       annotations:
