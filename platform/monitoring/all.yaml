@@ -40464,8 +40464,18 @@ spec:
         - name: config
           secret:
             secretName: monitoring-loki
-        - name: storage
-          emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+      annotations:
+        {}
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: "50Gi"
+      storageClassName: nvme0
 ---
 # Source: monitoring/charts/kube-prometheus-stack/charts/grafana/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1
