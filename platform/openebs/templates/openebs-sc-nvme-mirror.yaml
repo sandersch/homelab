@@ -4,6 +4,7 @@ metadata:
   name: nvme-mirror
 allowVolumeExpansion: true
 parameters:
+  shared: "yes"
   recordsize: "4k"
   compression: "off"
   dedup: "off"
