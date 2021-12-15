@@ -1,9 +1,9 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: config-sabnzbd
+  name: sabnzbd-config-zfs
 spec:
-  storageClassName: openebs-zfs-mirrorpv
+  storageClassName: nvme-mirror
   accessModes:
     - ReadWriteOnce
   resources:
