@@ -20,7 +20,7 @@ sabnzbd:
   persistence:
     config:
       enabled: true
-      existingClaim: sabnzbd-config-zfs
+      existingClaim: sabnzbd-config
     downloads:
       enabled: true
       type: hostPath
