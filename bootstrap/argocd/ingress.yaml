@@ -8,7 +8,7 @@ spec:
   tls:
   - hosts:
      - argocd.worm.run
-    secretName: argocd-secret
+    secretName: argocd-tls-certificate
   rules:
   - host: "argocd.worm.run"
     http:
