@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: populate-sonarr-config=pvc
+  name: populate-sonarr-config-pvc
   finalizers:
     - foregroundDeletion
 spec:

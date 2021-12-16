@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: populate-sabnzbd-config=pvc
+  name: populate-sabnzbd-config-pvc
   finalizers:
     - foregroundDeletion
 spec:
