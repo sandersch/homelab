@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: copy-pvc
+  finalizers:
+    - foregroundDeletion
+spec:
+  template:
+    spec:
+      volumes:
+      - name: src-vol
+        hostPath:
+         path: /mnt/media/to_archive/config/sabnzbd-config
+        #persistentVolumeClaim:
+          # SRC PVC
+          #claimName: sabnzbd-config
+      - name: dest-vol
+        persistentVolumeClaim:
+          # DEST PVC
+          claimName: sabnzbd-config
+      containers:
+      - name: alpine
+        image: alpine:latest
+        command: ["sh", "-c" , "apk add --update rsync && rsync -azPv --delete /root/src/ /root/dest && chown -R 568:568 /root/dest && ls -la /root/dest"]
+        volumeMounts:
+        - name: src-vol
+          mountPath: /root/src
+          readOnly: true
+        - name: dest-vol
+          mountPath: /root/dest
+        resources:
+          limits:
+            cpu: 4000m
+            memory: 4Gi
+          requests:
+            cpu: 500m
+            memory: 500Mi
+      restartPolicy: Never
+  backoffLimit: 1
+
