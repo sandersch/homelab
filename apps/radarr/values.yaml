@@ -20,7 +20,7 @@ radarr:
   persistence:
     config:
       enabled: true
-      existingClaim: radarr-config-zfs
+      existingClaim: radarr-config
     media:
       enabled: true
       type: hostPath
