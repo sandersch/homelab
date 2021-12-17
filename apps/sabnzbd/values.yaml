@@ -27,7 +27,7 @@ sabnzbd:
       hostPath: /mnt/downloads
       mountPath: /mnt/downloads
   additionalContainers:
-    sabnzbd_exporter:
+    sabnzbd-exporter:
       image: msroest/sabnzbd_exporter:0.1.36
       ports:
       - containerPort: 9387
