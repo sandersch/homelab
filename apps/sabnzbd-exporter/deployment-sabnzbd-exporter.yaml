@@ -4,10 +4,10 @@ kind: Deployment
 metadata:
   name: sabnzbd-exporter-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: sabnzbd-exporter
+      app: nginx
   template:
     metadata:
       labels:
