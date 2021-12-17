@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: sabnzbd-exporter
+        app: nginx
     spec:
       containers:
       - name: sabnzbd-exporter
