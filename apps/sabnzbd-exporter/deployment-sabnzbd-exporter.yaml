@@ -3,8 +3,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sabnzbd-exporter-deployment
+  labels:
+    app: sabnzbd-exporter
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: sabnzbd-exporter
   template:
     spec:
       containers:
