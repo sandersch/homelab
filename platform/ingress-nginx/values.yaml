@@ -1,0 +1,4 @@
+ingress-nginx:
+  ingressClassResource:
+    enabled: true
+    default: true
