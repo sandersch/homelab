@@ -1,4 +1,6 @@
 ingress-nginx:
-  ingressClassResource:
-    enabled: true
-    default: true
+  controller:
+    ingressClassResource:
+      name: public
+      enabled: true
+      default: true
