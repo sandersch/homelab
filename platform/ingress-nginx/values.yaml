@@ -5,6 +5,7 @@ ingress-nginx:
       enabled: true
       default: true
     service:
+      externalIPs: [172.17.1.2]
       type: NodePort
       nodePorts:
         http: 32080
