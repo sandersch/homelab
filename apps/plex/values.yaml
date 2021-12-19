@@ -1,4 +1,6 @@
 plex:
+  env:
+    ADVERTISE_IP: 172.17.1.2
   service:
     dnla-tcp:
       enabled: true
