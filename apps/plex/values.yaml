@@ -28,3 +28,4 @@ plex:
       enabled: true
       type: hostPath
       hostPath: /mnt/media
+      mountPath: /data
