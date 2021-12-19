@@ -1,0 +1,27 @@
+plex:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - host: plex.worm.run
+        paths:
+          - path: /
+            pathType: Prefix
+      tls:
+      - secretName: plex-tls-certificate
+        hosts:
+        - plex.worm.run
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+  persistence:
+    config:
+      enabled: true
+      existingClaim: plex-config
+    media:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/media
