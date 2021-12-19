@@ -11,4 +11,14 @@ ingress-nginx:
         http: 32080
         https: 32443
   tcp:
+    3005: "plex/plex:3005"
+    8324: "plex/plex:8324"
     32400: "plex/plex:32400"
+    32469: "plex/plex:32469"
+  udp:
+    1900: "plex/plex:1900"
+    5353: "plex/plex:5353"
+    32410: "plex/plex:32410"
+    32412: "plex/plex:32412"
+    32413: "plex/plex:32413"
+    32414: "plex/plex:32414"
