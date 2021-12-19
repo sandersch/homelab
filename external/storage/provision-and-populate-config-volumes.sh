@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-apps=plex "sabnzbd sonarr radarr"
+apps="plex sabnzbd sonarr radarr"
 
 for app in $apps; do
   kubectl get namespace $app || kubectl create namespace $app
