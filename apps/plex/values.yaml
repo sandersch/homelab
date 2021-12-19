@@ -24,7 +24,8 @@ plex:
     config:
       enabled: true
       existingClaim: plex-config
-    data:
+    media:
       enabled: true
       type: hostPath
       hostPath: /mnt/media
+      mountPath: /data
