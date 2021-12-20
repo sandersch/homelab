@@ -27,6 +27,9 @@ plex:
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
+  resources:
+    limits:
+      nvidia.com/gpu: 1
   persistence:
     config:
       enabled: true
