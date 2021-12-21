@@ -1,2 +1,4 @@
 platform/monitoring/charts
 platform/monitoring/Chart.lock
+platform/monitoring/jsonnetfile.lock.json
+platform/monitoring/vendor
