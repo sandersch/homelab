@@ -1,5 +1,5 @@
 local kp =
-  (import 'vendor/kube-prometheus/main.libsonnet') +
+  (import 'kube-prometheus/main.libsonnet') +
   // Uncomment the following imports to enable its patches
   // (import 'kube-prometheus/addons/anti-affinity.libsonnet') +
   // (import 'kube-prometheus/addons/managed-cluster.libsonnet') +
