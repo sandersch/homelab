@@ -1,0 +1,53 @@
+kube-prometheus-stack:
+  alertmanager:
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - alertmanager.worm.run
+      tls:
+      - secretName: alertmanager-general-tls
+        hosts:
+        - alertmanager.worm.run
+  grafana:
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - grafana.worm.run
+      tls:
+      - secretName: grafana-general-tls
+        hosts:
+        - grafana.worm.run
+    additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://monitoring-loki.default.svc.cluster.local:3100
+  prometheus:
+    prometheusSpec:
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 50Gi
+            storageClassName: nvme0
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - prometheus.worm.run
+      tls:
+      - secretName: prometheus-general-tls
+        hosts:
+        - prometheus.worm.run
+loki-stack:
+  loki:
+    persistence:
+      enabled: true
+      size: 50Gi
+      storageClassName: nvme0
