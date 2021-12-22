@@ -10,4 +10,5 @@ spec:
       - name: argocd-applicationset-controller
         command:
         - applicationset-controller
-        - --policy create-only
+        - --policy
+        - create-only
