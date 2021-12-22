@@ -17,20 +17,4 @@ patches:
 - path: argocd-cm.yaml
 - path: argocd-applicationset-controller-deployment-patch.yaml
 
-patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: argocd-applicationset-controller
-    namespace: argocd
-  spec:
-    template:
-      spec:
-        containers:
-        - name: argocd-applicationset-controller
-          command:
-          - applicationset-controller
-          - --policy create-only
-
 namespace: argocd
