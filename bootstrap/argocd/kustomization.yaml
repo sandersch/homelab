@@ -23,6 +23,7 @@ patchesStrategicMerge:
   kind: Deployment
   metadata:
     name: argocd-applicationset-controller
+    namespace: argocd
   spec:
     template:
       spec:
