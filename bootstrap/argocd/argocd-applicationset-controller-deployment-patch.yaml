@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argocd-server
+  name: argocd-applicationset-controller
 spec:
   template:
     spec:
