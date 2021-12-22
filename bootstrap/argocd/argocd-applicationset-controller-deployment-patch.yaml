@@ -6,6 +6,7 @@ spec:
   template:
     spec:
       containers:
+      - name: argocd-applicationset-controller
         command:
         - applicationset-controller
         - --policy create-only
