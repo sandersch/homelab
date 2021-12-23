@@ -29,6 +29,9 @@ plex:
     runAsGroup: 568
     fsGroup: 568
   resources:
+    requests:
+      cpu: 1
+      memory: "1Gi"
     limits:
       nvidia.com/gpu: 1
   persistence:
