@@ -1,0 +1,23 @@
+overseerr:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - host: overseerr.worm.run
+        paths:
+          - path: /
+            pathType: Prefix
+      tls:
+      - secretName: overseerr-tls-certificate
+        hosts:
+        - overseerr.worm.run
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+  persistence:
+    config:
+      enabled: true
+      existingClaim: overseerr-config
