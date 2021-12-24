@@ -13,6 +13,8 @@ overseerr:
       - secretName: overseerr-tls-certificate
         hosts:
         - overseerr.worm.run
+  image:
+    tag: latest
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
