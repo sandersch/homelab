@@ -22,8 +22,7 @@ plex:
         hosts:
         - plex.worm.run
   image:
-    pullPolicy: Always
-    tag: latest
+    tag: v1.24.4.5081-e362dc1ee
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
