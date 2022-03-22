@@ -21,8 +21,6 @@ plex:
       - secretName: plex-tls-certificate
         hosts:
         - plex.worm.run
-  image:
-    tag: v1.24.4.5081-e362dc1ee
   podSecurityContext:
     runAsUser: 568
     runAsGroup: 568
