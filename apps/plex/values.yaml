@@ -1,6 +1,4 @@
 plex:
-  image:
-    tag: 1.26.1.5798-99a4a6ac9
   env:
     ADVERTISE_IP: 172.17.1.2
     NVIDIA_DRIVER_CAPABILITIES: all
