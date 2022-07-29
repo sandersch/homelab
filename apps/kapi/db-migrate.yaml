@@ -5,6 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kapi
   namespace: default
+  annotations: argocd.argoproj.io/sync-options: Replace=true
 spec:
   template:
     metadata:
