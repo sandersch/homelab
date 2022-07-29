@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment # Create a deployment
 metadata:
   name: postgres # Set the name of the deployment
+  labels:
+    app.kubernetes.io/name: kapi
 spec:
   replicas: 1 # Set 1 deployment replicas
   selector:

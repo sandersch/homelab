@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
   labels:
-    app: postgres
+    app.kubernetes.io/name: kapi
 spec:
   storageClassName: nvme-mirror
   accessModes:
