@@ -23,13 +23,13 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: kapi
-                  key: username.txt
+                  key: POSTGRES_USER
                   optional: false
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: kapi
-                  key: password.txt
+                  key: POSTGRES_PASSWORD
                   optional: false
           ports:
             - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
