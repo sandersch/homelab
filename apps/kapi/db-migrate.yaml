@@ -18,9 +18,9 @@ spec:
         - db:migrate
         envFrom:
         - configMapRef:
-            name: env
+            name: kapi
         - secretRef:
-            name: env
+            name: kapi
         image: ghcr.io/sandersch/kapi:master
         imagePullPolicy: Always
         name: main
