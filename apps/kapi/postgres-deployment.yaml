@@ -38,8 +38,8 @@ spec:
                 name: kapi
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgresdat
+              name: postgres-data
       volumes:
-        - name: postgresdata
+        - name: postgres-data
           persistentVolumeClaim:
             claimName: postgres-pvc
