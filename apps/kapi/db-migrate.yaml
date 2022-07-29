@@ -19,6 +19,8 @@ spec:
         envFrom:
         - configMapRef:
             name: kapi
+        - secretRef:
+            name: kapi
         image: ghcr.io/sandersch/kapi:master
         imagePullPolicy: Always
         name: main
