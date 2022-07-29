@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: db-migrate-
+  labels:
+    app.kubernetes.io/name: kapi
+  namespace: default
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kapi
+    spec:
+      containers:
+      - command:
+        - rails
+        - db:migrate
+        envFrom:
+        - configMapRef:
+            name: env
+        - secretRef:
+            name: env
+        image: ghcr.io/sandersch/kapi:master
+        imagePullPolicy: Always
+        name: main
+      restartPolicy: Never
