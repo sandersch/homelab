@@ -19,22 +19,12 @@ spec:
           image: postgres:14-alpine # Docker image
           imagePullPolicy: "IfNotPresent"
           env:
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: kapi
-                  key: POSTGRES_USER
-                  optional: false
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: kapi
-                  key: POSTGRES_PASSWORD
-                  optional: false
           ports:
             - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
           envFrom:
             - configMapRef:
+                name: kapi
+            - secretRef:
                 name: kapi
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
