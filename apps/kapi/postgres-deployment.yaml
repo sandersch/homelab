@@ -4,6 +4,7 @@ metadata:
   name: postgres # Set the name of the deployment
   labels:
     app.kubernetes.io/name: kapi
+    process: postgres
 spec:
   replicas: 1 # Set 1 deployment replicas
   selector:
@@ -12,7 +13,8 @@ spec:
   template:
     metadata:
       labels:
-        app: postgres
+        app.kubernetes.io/name: kapi
+        process: postgres
     spec:
       containers:
         - name: postgres
