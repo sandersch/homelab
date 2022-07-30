@@ -15,6 +15,7 @@ spec:
       containers:
       - command:
         - rails
+        - db:create
         - db:migrate
         envFrom:
         - configMapRef:
