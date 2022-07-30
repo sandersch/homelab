@@ -16,6 +16,10 @@ spec:
         app.kubernetes.io/name: kapi
         process: web
     spec:
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc
       containers:
       - env:
         - name: PORT
@@ -25,10 +29,25 @@ spec:
             name: kapi
         - secretRef:
             name: kapi
-        image: ghcr.io/sandersch/kapi:master
-        imagePullPolicy: Always
-        name: main
-        ports:
-        - containerPort: 3000
-          name: http
-          protocol: TCP
+        - name: main
+          image: ghcr.io/sandersch/kapi:master
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 3000
+            name: http
+            protocol: TCP
+        - name: postgres
+          image: postgres:14-alpine # Docker image
+          imagePullPolicy: "IfNotPresent"
+          env:
+          ports:
+            - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+          envFrom:
+            - configMapRef:
+                name: kapi
+            - secretRef:
+                name: kapi
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+
