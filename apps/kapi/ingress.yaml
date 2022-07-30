@@ -19,4 +19,4 @@ spec:
           service:
             name: kapi-web
             port:
-              name: http
+              number: 3000
