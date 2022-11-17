@@ -1,0 +1,13 @@
+apiVersion: v2
+name: lumnis
+version: 0.0.0
+dependencies:
+- name: logstash
+  version: 8.5.1
+  repository: https://github.com/elastic/helm-charts
+- name: elasticsearch
+  version: 8.5.1
+  repository: https://github.com/elastic/helm-charts
+- name: kibana
+  version: 8.5.1
+  repository: https://github.com/elastic/helm-charts
