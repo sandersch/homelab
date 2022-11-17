@@ -4,10 +4,10 @@ version: 0.0.0
 dependencies:
 - name: logstash
   version: 8.5.1
-  repository: https://github.com/elastic/helm-charts
+  repository: https://helm.elastic.co
 - name: elasticsearch
   version: 8.5.1
-  repository: https://github.com/elastic/helm-charts
+  repository: https://helm.elastic.co
 - name: kibana
   version: 8.5.1
-  repository: https://github.com/elastic/helm-charts
+  repository: https://helm.elastic.co
