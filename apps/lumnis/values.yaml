@@ -17,4 +17,19 @@ logstash:
   persistence:
     enabled: true
     storageClass: "nvme0"
-    size: 25Gi
+elasticsearch:
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: elasticsearch.worm.run
+        paths:
+          - path: /
+    tls:
+    - secretName: elasticsearch-tls-certificate
+      hosts:
+      - elasticsearch.worm.run
+  persistence:
+    enabled: true
+    storageClass: "nvme0"
