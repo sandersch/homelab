@@ -37,3 +37,20 @@ elasticsearch:
     enabled: true
     storageClass: "nvme0"
   antiAffinity: "soft"
+kibana:
+  ingress:
+    enabled: true
+    className: public
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+       - host: kibana.worm.run
+         paths:
+           - path: /beats
+             servicePort: 5044
+           - path: /http
+             servicePort: 8080
+    tls:
+    - secretName: kibana-tls-certificate
+      hosts:
+      - kibana.worm.run
