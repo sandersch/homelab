@@ -1,6 +1,7 @@
 logstash:
   ingress:
     enabled: true
+    ingressClassName: public
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
     hosts:
@@ -20,6 +21,7 @@ logstash:
 elasticsearch:
   ingress:
     enabled: true
+    ingressClassName: public
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
     hosts:
