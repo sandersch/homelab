@@ -4,7 +4,6 @@ logstash:
     className: public
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     hosts:
        - host: logstash.worm.run
          paths:
