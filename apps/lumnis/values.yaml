@@ -33,3 +33,4 @@ elasticsearch:
   persistence:
     enabled: true
     storageClass: "nvme0"
+  antiAffinity: "soft"
