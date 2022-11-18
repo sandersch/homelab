@@ -44,12 +44,9 @@ kibana:
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
     hosts:
-       - host: kibana.worm.run
-         paths:
-           - path: /beats
-             servicePort: 5044
-           - path: /http
-             servicePort: 8080
+      - host: kibana.worm.run
+        paths:
+          - path: /
     tls:
     - secretName: kibana-tls-certificate
       hosts:
