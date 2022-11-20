@@ -28,8 +28,13 @@ plex:
   resources:
     requests:
       cpu: 1
-      memory: "1Gi"
+      memory: "4Gi"
+      ephemeral-storage: "2Gi"
+      nvidia.com/gpu: 1
     limits:
+      cpu: "2"
+      memory: "16Gi"
+      ephemeral-storage: "4Gi"
       nvidia.com/gpu: 1
   persistence:
     config:
