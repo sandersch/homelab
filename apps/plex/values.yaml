@@ -1,6 +1,6 @@
 plex:
   image:
-    tag: latest
+    tag: public
   env:
     ADVERTISE_IP: 172.17.1.2
     NVIDIA_DRIVER_CAPABILITIES: all
