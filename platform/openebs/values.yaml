@@ -1,2 +1,10 @@
 zfs-localpv:
   enabled: true
+ndm:
+  resources:
+    limits:
+      ephemeral-storage: "1Gi"
+ndmOperator:
+  resources:
+    limits:
+      ephemeral-storage: "1Gi"
