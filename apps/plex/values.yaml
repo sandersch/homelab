@@ -40,6 +40,9 @@ plex:
     config:
       enabled: true
       existingClaim: plex-config
+    transcode:
+      enabled: true
+      existingClaim: plex-transcode
     media:
       enabled: true
       type: hostPath
