@@ -6,6 +6,16 @@ metadata:
     app.kubernetes.io/part-of: argocd
   name: argocd-cm
 data:
+  # Configuration to customize resource behavior (optional) can be configured via splitted sub keys.
+  # Keys are in the form: resource.customizations.ignoreDifferences.<group_kind>, resource.customizations.health.<group_kind>
+  # resource.customizations.actions.<group_kind>, resource.customizations.knownTypeFields.<group-kind>
+  resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
+    jsonPointers:
+    - /webhooks/0/clientConfig/caBundle
+    jqPathExpressions:
+    - .webhooks[0].clientConfig.caBundle
+    managedFieldsManagers:
+    - kube-controller-manager
   configManagementPlugins: |
     - name: kustomized-helm
       init:
