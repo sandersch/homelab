@@ -11,4 +11,4 @@ spec:
         command:
         - applicationset-controller
         - --policy
-        - create-only
+        - create-update
