@@ -10,7 +10,9 @@ spec:
     config:
       node.store.allow_mmap: false
     volumeClaimTemplates:
-    - spec:
+    - metadata:
+        name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
+      spec:
         accessModes:
         - ReadWriteOnce
         resources:
