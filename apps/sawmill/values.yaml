@@ -1,0 +1,24 @@
+logstash:
+  ingress:
+    enabled: true
+    className: public
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+       - host: sawmill.worm.run
+         paths:
+           - path: /beats
+             servicePort: 5044
+           - path: /http
+             servicePort: 8080
+    tls:
+    - secretName: sawmill-logstash-tls-certificate
+      hosts:
+      - sawmill.worm.run
+  persistence:
+    enabled: true
+    storageClass: "nvme0"
+  logstashConfig:
+      logstash.yml: |
+        http.host: 0.0.0.0
+        monitoring.elasticsearch.hosts: http://elasticsearch.sawmill.svc.cluster.local:9200

@@ -5,23 +5,3 @@ dependencies:
 - name: logstash
   version: 8.5.1
   repository: https://helm.elastic.co
-logstash:
-  ingress:
-    enabled: true
-    className: public
-    annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    hosts:
-       - host: sawmill.worm.run
-         paths:
-           - path: /beats
-             servicePort: 5044
-           - path: /http
-             servicePort: 8080
-    tls:
-    - secretName: sawmill-logstash-tls-certificate
-      hosts:
-      - sawmill.worm.run
-  persistence:
-    enabled: true
-    storageClass: "nvme0"
