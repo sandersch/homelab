@@ -1,0 +1,7 @@
+apiVersion: v2
+name: sawmill
+version: 0.0.0
+dependencies:
+- name: eck-stack
+  version: 0.1.0
+  repository: https://helm.elastic.co
