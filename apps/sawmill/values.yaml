@@ -15,9 +15,6 @@ logstash:
     - secretName: sawmill-logstash-tls-certificate
       hosts:
       - sawmill.worm.run
-  persistence:
-    enabled: true
-    storageClass: "nvme0"
   logstashConfig:
       logstash.yml: |
         http.host: 0.0.0.0
