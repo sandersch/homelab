@@ -1,6 +1,7 @@
 eck-elasticsearch:
-  annotations:
-    eck.k8s.elastic.co/license: basic
+  metadata:
+    annotations:
+      eck.k8s.elastic.co/license: basic
   fullnameOverride: sawmill
   version: 8.5.0
   nodeSets:
