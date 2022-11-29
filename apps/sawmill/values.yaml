@@ -1,4 +1,6 @@
 eck-elasticsearch:
+  annotations:
+    eck.k8s.elastic.co/license: basic
   fullnameOverride: sawmill
   version: 8.5.0
   nodeSets:
@@ -22,6 +24,8 @@ eck-elasticsearch:
             storage: 5Gi
         storageClassName: nvme0
 eck-kibana:
+  annotations:
+    eck.k8s.elastic.co/license: basic
   spec:
     elasticsearchRef:
       name: sawmill
