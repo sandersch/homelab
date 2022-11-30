@@ -22,4 +22,4 @@ spec:
   tls:
     - hosts:
         - sawmill.worm.run
-      secretName: sawmill-kibana-tls-certificate
+      secretName: sawmill-tls-certificate
