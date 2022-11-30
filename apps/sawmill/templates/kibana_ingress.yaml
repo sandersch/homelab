@@ -4,18 +4,16 @@ metadata:
   name: sawmill-kibana
   namespace: sawmill
 spec:
-  ingressClassName: public
   rules:
     - host: sawmill.worm.run
       http:
         paths:
           - backend:
+            path: /
               service:
-                name: sawmill-kibana
+                name: sawmill-kb-http
                 port:
                   number: 5601
-            path: /
-            pathType: ImplementationSpecific
   tls:
     - hosts:
         - samill.worm.run
