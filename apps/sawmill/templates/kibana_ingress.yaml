@@ -8,8 +8,9 @@ spec:
     - host: sawmill.worm.run
       http:
         paths:
-          - backend:
+          - pathType: Prefix
             path: /
+            backend:
               service:
                 name: sawmill-kb-http
                 port:
