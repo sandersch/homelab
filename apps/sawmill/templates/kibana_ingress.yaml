@@ -17,5 +17,5 @@ spec:
                   number: 5601
   tls:
     - hosts:
-        - samill.worm.run
+        - sawmill.worm.run
       secretName: sawmill-kibana-tls-certificate
