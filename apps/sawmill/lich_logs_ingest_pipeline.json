@@ -50,6 +50,13 @@
     }
   },
   {
+    "convert": {
+      "field": "regular_experience",
+      "type": "integer",
+      "ignore_missing": true
+    }
+  },
+  {
     "gsub": {
       "field": "field_experience",
       "pattern": ",",
@@ -58,10 +65,24 @@
     }
   },
   {
+    "convert": {
+      "field": "field_experience",
+      "type": "integer",
+      "ignore_missing": true
+    }
+  },
+  {
     "gsub": {
       "field": "field_bucket_size",
       "pattern": ",",
       "replacement": "",
+      "ignore_missing": true
+    }
+  },
+  {
+    "convert": {
+      "field": "field_bucket_size",
+      "type": "integer",
       "ignore_missing": true
     }
   },
@@ -84,6 +105,13 @@
     }
   },
   {
+    "convert": {
+      "field": "ascension_experience",
+      "type": "integer",
+      "ignore_missing": true
+    }
+  },
+  {
     "grok": {
       "field": "message",
       "patterns": [
@@ -102,12 +130,18 @@
     }
   },
   {
+    "convert": {
+      "field": "total_experience",
+      "type": "integer"
+    }
+  },
+  {
     "grok": {
       "field": "message",
       "patterns": [
         "You currently have (?<bounty_points>[0-9,]+) unspent bounty points."
       ],
-      "if": "String msg = ctx.message;\nmsg ==~ /^You currently have [0-9,]+ unspent bounty points\.$/",
+      "if": "String msg = ctx.message;\nmsg ==~ /^You currently have [0-9,]+ unspent bounty points\\.$/",
       "description": "Parse bounty_points"
     }
   },
@@ -120,12 +154,19 @@
     }
   },
   {
+    "convert": {
+      "field": "bounty_points",
+      "type": "integer",
+      "ignore_missing": true
+    }
+  },
+  {
     "grok": {
       "field": "message",
       "patterns": [
         "You have accumulated a total of (?<lifetime_bounty_points>[0-9,]+) lifetime bounty points."
       ],
-      "if": "String msg = ctx.message;\nmsg ==~ /^You have accumulated a total of [0-9,]+ lifetime bounty points\.$/",
+      "if": "String msg = ctx.message;\nmsg ==~ /^You have accumulated a total of [0-9,]+ lifetime bounty points\\.$/",
       "description": "Parse lifetime_bounty_points"
     }
   },
@@ -138,13 +179,27 @@
     }
   },
   {
+    "convert": {
+      "field": "lifetime_bounty_points",
+      "type": "integer",
+      "ignore_missing": true
+    }
+  },
+  {
     "grok": {
       "field": "message",
       "patterns": [
         "%{SPACE}Total Ethereal Scrip:%{SPACE}%{NUMBER:ethereal_scrip:int}"
       ],
       "if": "String msg = ctx.message;\nmsg.contains(\"Total Ethereal Scrip:\")",
-      "description": "Parse reim scrip"
+      "description": "Parse ethereal scrip"
+    }
+  },
+  {
+    "convert": {
+      "field": "ethereal_scrip",
+      "type": "integer",
+      "ignore_missing": true
     }
   },
   {
@@ -166,10 +221,24 @@
     }
   },
   {
+    "convert": {
+      "field": "long_term_experience",
+      "type": "integer",
+      "ignore_missing": true
+    }
+  },
+  {
     "gsub": {
       "field": "deeds",
       "pattern": ",",
       "replacement": "",
+      "ignore_missing": true
+    }
+  },
+  {
+    "convert": {
+      "field": "deeds",
+      "type": "integer",
       "ignore_missing": true
     }
   }
