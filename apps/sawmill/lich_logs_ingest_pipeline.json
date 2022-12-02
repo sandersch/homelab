@@ -134,7 +134,8 @@
     {
       "convert": {
         "field": "total_experience",
-        "type": "integer"
+        "type": "integer",
+        "ignore_missing": true
       }
     },
     {
