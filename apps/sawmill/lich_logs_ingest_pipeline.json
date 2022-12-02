@@ -1,245 +1,248 @@
-[
-  {
-    "grok": {
-      "field": "log.file.path",
-      "patterns": [
-        "/home/charlie/lich/logs/%{WORD:game}-%{WORD:character}/%{GREEDYDATA:lich_log_filename}"
-      ],
-      "description": "Extract Game and Character from log file path"
+{
+  "description": "Parse lich logs",
+  "processors": [
+    {
+      "grok": {
+        "field": "log.file.path",
+        "patterns": [
+          "/home/charlie/lich/logs/%{WORD:game}-%{WORD:character}/%{GREEDYDATA:lich_log_filename}"
+        ],
+        "description": "Extract Game and Character from log file path"
+      }
+    },
+    {
+      "grok": {
+        "field": "lich_log_filename",
+        "patterns": [
+          "%{INT:lich_log_year}-%{INT:lich_log_month}-%{INT:lich_log_day}-%{INT:lich_log_count}"
+        ],
+        "ignore_missing": true,
+        "description": "Extract date parts from lich_log_filename"
+      }
+    },
+    {
+      "set": {
+        "field": "lich_logged_on",
+        "value": "{{{lich_log_year}}}-{{{lich_log_month}}}-{{{lich_log_day}}}T00:00:00.000Z"
+      }
+    },
+    {
+      "set": {
+        "field": "@timestamp",
+        "copy_from": "lich_logged_on",
+        "if": "String raw_logged_on = ctx.lich_logged_on;\nZonedDateTime logged_on = ZonedDateTime.parse(raw_logged_on, DateTimeFormatter.ISO_DATE_TIME);\nZonedDateTime cutoff = ZonedDateTime.of(2022, 12, 1, 0, 0, 0, 0, ZoneId.of('Z'));\nlogged_on.isBefore(cutoff)"
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "%{SPACE}Experience:%{SPACE}(?<regular_experience>[0-9,]+)%{SPACE}Field%{SPACE}Exp:%{SPACE}(?<field_experience>[0-9,]+)/(?<field_bucket_size>[0-9,]+)%{SPACE}"
+        ],
+        "if": "String message = ctx.message;\nmessage.contains(\"Field Exp:\")",
+        "description": "Parse regular_experience and field_experience"
+      }
+    },
+    {
+      "gsub": {
+        "field": "regular_experience",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "regular_experience",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "gsub": {
+        "field": "field_experience",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "field_experience",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "gsub": {
+        "field": "field_bucket_size",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "field_bucket_size",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "%{SPACE}Ascension Exp:%{SPACE}(?<ascension_experience>[0-9,]+)%{SPACE}Recent Deaths: %{NUMBER:recent_deaths:int}"
+        ],
+        "if": "String message = ctx.message;\nmessage.contains(\"Ascension Exp:\")",
+        "description": "Parse ascension_experience and recent_deaths"
+      }
+    },
+    {
+      "gsub": {
+        "field": "ascension_experience",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "ascension_experience",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "%{SPACE}Total Exp:%{SPACE}(?<total_experience>[0-9,]+)%{SPACE}Death's Sting: %{WORD:deaths_sting}"
+        ],
+        "if": "String message = ctx.message;\nmessage.contains(\"Total Exp:\")",
+        "description": "Parse total_experience and deaths_sting"
+      }
+    },
+    {
+      "gsub": {
+        "field": "total_experience",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "total_experience",
+        "type": "integer"
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "You currently have (?<bounty_points>[0-9,]+) unspent bounty points."
+        ],
+        "if": "String msg = ctx.message;\nmsg ==~ /^You currently have [0-9,]+ unspent bounty points\\.$/",
+        "description": "Parse bounty_points"
+      }
+    },
+    {
+      "gsub": {
+        "field": "bounty_points",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "bounty_points",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "You have accumulated a total of (?<lifetime_bounty_points>[0-9,]+) lifetime bounty points."
+        ],
+        "if": "String msg = ctx.message;\nmsg ==~ /^You have accumulated a total of [0-9,]+ lifetime bounty points\\.$/",
+        "description": "Parse lifetime_bounty_points"
+      }
+    },
+    {
+      "gsub": {
+        "field": "lifetime_bounty_points",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "lifetime_bounty_points",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "%{SPACE}Total Ethereal Scrip:%{SPACE}%{NUMBER:ethereal_scrip:int}"
+        ],
+        "if": "String msg = ctx.message;\nmsg.contains(\"Total Ethereal Scrip:\")",
+        "description": "Parse ethereal scrip"
+      }
+    },
+    {
+      "convert": {
+        "field": "ethereal_scrip",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "%{SPACE}Long-Term Exp:%{SPACE}(?<long_term_experience>[0-9,]+)%{SPACE}Deeds:%{SPACE}(?<deeds>[0-9,]+)"
+        ],
+        "if": "String msg = ctx.message;\nmsg.contains(\"Long-Term Exp:\")",
+        "description": "Parse long_term_experience and deeds"
+      }
+    },
+    {
+      "gsub": {
+        "field": "long_term_experience",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "long_term_experience",
+        "type": "integer",
+        "ignore_missing": true
+      }
+    },
+    {
+      "gsub": {
+        "field": "deeds",
+        "pattern": ",",
+        "replacement": "",
+        "ignore_missing": true
+      }
+    },
+    {
+      "convert": {
+        "field": "deeds",
+        "type": "integer",
+        "ignore_missing": true
+      }
     }
-  },
-  {
-    "grok": {
-      "field": "lich_log_filename",
-      "patterns": [
-        "%{INT:lich_log_year}-%{INT:lich_log_month}-%{INT:lich_log_day}-%{INT:lich_log_count}"
-      ],
-      "ignore_missing": true,
-      "description": "Extract date parts from lich_log_filename"
-    }
-  },
-  {
-    "set": {
-      "field": "lich_logged_on",
-      "value": "{{{lich_log_year}}}-{{{lich_log_month}}}-{{{lich_log_day}}}T00:00:00.000Z"
-    }
-  },
-  {
-    "set": {
-      "field": "@timestamp",
-      "copy_from": "lich_logged_on",
-      "if": "String raw_logged_on = ctx.lich_logged_on;\nZonedDateTime logged_on = ZonedDateTime.parse(raw_logged_on, DateTimeFormatter.ISO_DATE_TIME);\nZonedDateTime cutoff = ZonedDateTime.of(2022, 12, 1, 0, 0, 0, 0, ZoneId.of('Z'));\nlogged_on.isBefore(cutoff)"
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "%{SPACE}Experience:%{SPACE}(?<regular_experience>[0-9,]+)%{SPACE}Field%{SPACE}Exp:%{SPACE}(?<field_experience>[0-9,]+)/(?<field_bucket_size>[0-9,]+)%{SPACE}"
-      ],
-      "if": "String message = ctx.message;\nmessage.contains(\"Field Exp:\")",
-      "description": "Parse regular_experience and field_experience"
-    }
-  },
-  {
-    "gsub": {
-      "field": "regular_experience",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "regular_experience",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "gsub": {
-      "field": "field_experience",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "field_experience",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "gsub": {
-      "field": "field_bucket_size",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "field_bucket_size",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "%{SPACE}Ascension Exp:%{SPACE}(?<ascension_experience>[0-9,]+)%{SPACE}Recent Deaths: %{NUMBER:recent_deaths:int}"
-      ],
-      "if": "String message = ctx.message;\nmessage.contains(\"Ascension Exp:\")",
-      "description": "Parse ascension_experience and recent_deaths"
-    }
-  },
-  {
-    "gsub": {
-      "field": "ascension_experience",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "ascension_experience",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "%{SPACE}Total Exp:%{SPACE}(?<total_experience>[0-9,]+)%{SPACE}Death's Sting: %{WORD:deaths_sting}"
-      ],
-      "if": "String message = ctx.message;\nmessage.contains(\"Total Exp:\")",
-      "description": "Parse total_experience and deaths_sting"
-    }
-  },
-  {
-    "gsub": {
-      "field": "total_experience",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "total_experience",
-      "type": "integer"
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "You currently have (?<bounty_points>[0-9,]+) unspent bounty points."
-      ],
-      "if": "String msg = ctx.message;\nmsg ==~ /^You currently have [0-9,]+ unspent bounty points\\.$/",
-      "description": "Parse bounty_points"
-    }
-  },
-  {
-    "gsub": {
-      "field": "bounty_points",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "bounty_points",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "You have accumulated a total of (?<lifetime_bounty_points>[0-9,]+) lifetime bounty points."
-      ],
-      "if": "String msg = ctx.message;\nmsg ==~ /^You have accumulated a total of [0-9,]+ lifetime bounty points\\.$/",
-      "description": "Parse lifetime_bounty_points"
-    }
-  },
-  {
-    "gsub": {
-      "field": "lifetime_bounty_points",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "lifetime_bounty_points",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "%{SPACE}Total Ethereal Scrip:%{SPACE}%{NUMBER:ethereal_scrip:int}"
-      ],
-      "if": "String msg = ctx.message;\nmsg.contains(\"Total Ethereal Scrip:\")",
-      "description": "Parse ethereal scrip"
-    }
-  },
-  {
-    "convert": {
-      "field": "ethereal_scrip",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "grok": {
-      "field": "message",
-      "patterns": [
-        "%{SPACE}Long-Term Exp:%{SPACE}(?<long_term_experience>[0-9,]+)%{SPACE}Deeds:%{SPACE}(?<deeds>[0-9,]+)"
-      ],
-      "if": "String msg = ctx.message;\nmsg.contains(\"Long-Term Exp:\")",
-      "description": "Parse long_term_experience and deeds"
-    }
-  },
-  {
-    "gsub": {
-      "field": "long_term_experience",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "long_term_experience",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  },
-  {
-    "gsub": {
-      "field": "deeds",
-      "pattern": ",",
-      "replacement": "",
-      "ignore_missing": true
-    }
-  },
-  {
-    "convert": {
-      "field": "deeds",
-      "type": "integer",
-      "ignore_missing": true
-    }
-  }
-]
+  ]
+}
