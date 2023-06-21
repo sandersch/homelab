@@ -12,7 +12,6 @@ resources:
 - bootstrap.yaml
 
 patches:
-- path: argocd-server-deployment-patch.yaml
 - path: argocd-cm.yaml
 - path: argocd-cmd-params-cm-patch.yaml
 
