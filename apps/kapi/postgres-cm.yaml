@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres
-  labels:
-    app.kubernetes.io/name: kapi
-data:
-  POSTGRES_DB: kapi_production
