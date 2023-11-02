@@ -1,6 +1,6 @@
 plex:
   image:
-    tag: "1.32.6.7557-1cf77d501"
+    tag: "1.32.7.7621-871adbd44"
     repository: "ghcr.io/onedr0p/plex"
   env:
     ADVERTISE_IP: 172.17.1.2
