@@ -3,5 +3,5 @@ name: sabnzbd
 version: 0.0.0
 dependencies:
 - name: sabnzbd
-  version: 9.1.0
+  version: 9.4.2
   repository: https://k8s-at-home.com/charts/
