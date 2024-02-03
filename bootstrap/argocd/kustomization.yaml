@@ -10,6 +10,7 @@ resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml # TODO switch back to stable
 - ingress.yaml
 - bootstrap.yaml
+- argocd-image-updater.yaml
 
 patches:
 - path: argocd-cm.yaml
