@@ -1,0 +1,23 @@
+prowlarr:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - host: prowlarr.worm.run
+        paths:
+          - path: /
+            pathType: Prefix
+      tls:
+      - secretName: prowlarr-tls-certificate
+        hosts:
+        - prowlarr.worm.run
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  persistence:
+    config:
+      enabled: true
+      existingClaim: prowlarr-config
