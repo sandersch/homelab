@@ -15,5 +15,5 @@ frigate:
         - frigate.worm.run
   persistence:
     config:
-      enabled: true
+      enabled: false
       existingClaim: frigate-config
