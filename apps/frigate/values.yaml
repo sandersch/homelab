@@ -7,7 +7,7 @@ frigate:
       - host: frigate.worm.run
         paths:
           - path: /
-            portName: http-auth
+            portName: http
     tls:
       - secretName: frigate-tls-certificate
         hosts:
