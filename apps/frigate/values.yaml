@@ -5,14 +5,14 @@ frigate:
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
-      - host: frigate.worm.run
-        paths:
-          - path: /
-            pathType: Prefix
+        - host: frigate.worm.run
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
-      - secretName: frigate-tls-certificate
-        hosts:
-        - frigate.worm.run
+        - secretName: frigate-tls-certificate
+          hosts:
+          - frigate.worm.run
   persistence:
     config:
       enabled: false
