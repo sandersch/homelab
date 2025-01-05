@@ -1,0 +1,19 @@
+frigate:
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+      - host: frigate.worm.run
+        paths:
+          - path: /
+            pathType: Prefix
+      tls:
+      - secretName: frigate-tls-certificate
+        hosts:
+        - frigate.worm.run
+  persistence:
+    config:
+      enabled: true
+      existingClaim: frigate-config
