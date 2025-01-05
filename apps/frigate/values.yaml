@@ -17,3 +17,17 @@ frigate:
     config:
       enabled: false
       existingClaim: frigate-config
+  config: |
+    mqtt:
+      host: "mqtt.example.com"
+      port: 1883
+      user: admin
+      password: "<your_mqtt_password>"
+    cameras:
+      # Define at least one camera
+      back:
+        ffmpeg:
+          inputs:
+            - path: rtsp://viewer:password@10.0.10.10:554/cam/realmonitor?channel=1&subtype=2
+              roles:
+                - detect
