@@ -27,6 +27,6 @@ frigate:
       back:
         ffmpeg:
           inputs:
-            - path: rtsp://viewer:password@10.0.10.10:554/cam/realmonitor?channel=1&subtype=2
+            - path: rtsp://viewer:892f5d38@172.17.1.152/cam/realmonitor?channel=1&subtype=0
               roles:
                 - detect
