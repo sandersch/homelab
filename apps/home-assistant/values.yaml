@@ -8,7 +8,7 @@ home-assistant:
       - host: home-assistant.worm.run
         paths:
           - path: /
-            portName: http
+            pathType: ImplementationSpecific
     tls:
       - secretName: home-assistant-tls-certificate
         hosts:
