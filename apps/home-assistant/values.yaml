@@ -1,0 +1,17 @@
+
+home-assistant:
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: home-assistant.worm.run
+        paths:
+          - path: /
+            portName: http
+    tls:
+      - secretName: home-assistant-tls-certificate
+        hosts:
+        - home-assistant.worm.run
+  persistence:
+    enabled: false
