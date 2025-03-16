@@ -8,7 +8,7 @@ app-template:
             tag: 3.8.1
           env:
             ROMM_DB_DRIVER: postgresql
-            REDIS_HOST: dragonfly.database.svc.cluster.local
+            REDIS_HOST: dragonflydb.dragonflydb.svc.cluster.local
             REDIS_PORT: 6379
             REDIS_DB: 5
   service:
