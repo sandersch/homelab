@@ -1,59 +1,58 @@
-romm:
-  controllers:
-    romm:
-      containers:
+controllers:
+  romm:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/rommapp/romm
+          tag: 3.8.1
+        env:
+          ROMM_DB_DRIVER: postgresql
+          REDIS_HOST: dragonfly.database.svc.cluster.local
+          REDIS_PORT: 6379
+          REDIS_DB: 5
+service:
+  app:
+    controller: romm
+    ports:
+      http:
+        port: 8080
+ingress:
+  app:
+    className: private
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: romm.worm.run
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - secretName: romm-tls-certificate
+        hosts:
+        - romm.worm.run
+persistence:
+  data:
+    existingClaim: romm-data
+    advancedMounts:
+      romm:
         app:
-          image:
-            repository: ghcr.io/rommapp/romm
-            tag: 3.8.1
-          env:
-            ROMM_DB_DRIVER: postgresql
-            REDIS_HOST: dragonfly.database.svc.cluster.local
-            REDIS_PORT: 6379
-            REDIS_DB: 5
-  service:
-    app:
-      controller: romm
-      ports:
-        http:
-          port: 8080
-  ingress:
-    app:
-      className: private
-      annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
-      hosts:
-        - host: romm.worm.run
-          paths:
-            - path: /
-              service:
-                identifier: app
-                port: http
-      tls:
-        - secretName: romm-tls-certificate
-          hosts:
-          - romm.worm.run
-  persistence:
-    data:
-      existingClaim: romm-data
-      advancedMounts:
-        romm:
-          app:
-            - path: /romm/config
-              subPath: config
-            - path: /romm/assets
-              subPath: assets
-            - path: /romm/resources
-              subPath: resources
-    tmp:
-      type: emptyDir
-      globalMounts:
-        - path: /tmp
-    games:
-      type: hostPath
-      hostPath: /mnt/media/
-      advancedMounts:
-        romm:
-          app:
-            - path: /romm/library
-              subPath: games
+          - path: /romm/config
+            subPath: config
+          - path: /romm/assets
+            subPath: assets
+          - path: /romm/resources
+            subPath: resources
+  tmp:
+    type: emptyDir
+    globalMounts:
+      - path: /tmp
+  games:
+    type: hostPath
+    hostPath: /mnt/media/
+    advancedMounts:
+      romm:
+        app:
+          - path: /romm/library
+            subPath: games
