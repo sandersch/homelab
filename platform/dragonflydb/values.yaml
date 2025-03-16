@@ -51,7 +51,7 @@ app-template:
           runAsNonRoot: true
   service:
     app:
-      controller: *app
+      controller: dragonflydb
       ports:
         http:
           port: *port
@@ -59,7 +59,7 @@ app-template:
           port: 8080
   serviceMonitor:
     app:
-      serviceName: *app
+      serviceName: dragonflydb
       endpoints:
         - port: metrics
           scheme: http
@@ -68,4 +68,4 @@ app-template:
           scrapeTimeout: 10s
   serviceAccount:
     create: true
-    name: *app
+    name: dragonflydb
