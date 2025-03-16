@@ -4,4 +4,4 @@ version: 0.0.0
 dependencies:
 - name: bjw-s/app-template
   version: 3
-  repository: oci://ghcr.io/bjw-s/helm/
+  repository: oci://ghcr.io/bjw-s/helm
