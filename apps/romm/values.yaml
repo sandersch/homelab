@@ -19,7 +19,7 @@ app-template:
           port: 8080
   ingress:
     app:
-      className: private
+      className: public
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
       hosts:
