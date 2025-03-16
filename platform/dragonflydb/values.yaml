@@ -51,7 +51,7 @@ app-template:
           runAsNonRoot: true
   service:
     app:
-      controller:
+      controller: *app
       ports:
         http:
           port: *port
