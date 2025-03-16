@@ -2,6 +2,6 @@ apiVersion: v2
 name: romm
 version: 0.0.0
 dependencies:
-- name: bjw-s/app-template
+- name: app-template
   version: 3
   repository: oci://ghcr.io/bjw-s/helm
