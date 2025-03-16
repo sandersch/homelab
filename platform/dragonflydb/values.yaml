@@ -1,6 +1,6 @@
 app-template:
   controllers:
-    dragonfly-operator:
+    dragonflydb:
       replicas: 1
       strategy: RollingUpdate
       containers:
