@@ -1,0 +1,7 @@
+apiVersion: v2
+name: romm
+version: 0.0.0
+dependencies:
+- name: romm
+  version: 3
+  repository: oci://ghcr.io/bjw-s/helm/
