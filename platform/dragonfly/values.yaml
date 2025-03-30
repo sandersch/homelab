@@ -1,0 +1,19 @@
+dragonfly:
+  storage:
+    enabled: true
+    requests: 128Mi # Set as desired
+
+  extraArgs:
+    - --dbfilename=my-dump-{timestamp} # should only contain the filename without any file extensions
+    - --snapshot_cron=* * * * * # cron format
+
+  podSecurityContext:
+    fsGroup: 2000
+
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000

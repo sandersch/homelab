@@ -1,0 +1,7 @@
+apiVersion: v2
+name: dragonfly
+version: 0.0.0
+dependencies:
+- name: dragonfly
+  version: 1.28.0
+  repository: oci://ghcr.io/dragonflydb/dragonfly/helm/dragonfly
