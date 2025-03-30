@@ -7,6 +7,27 @@ app-template:
             repository: ghcr.io/rommapp/romm
             tag: 3.8.1
           env:
+            DB_HOST:
+              valueFrom:
+                secretKeyRef:
+                  name: database-romm-user
+                  key: HOST
+            DB_NAME:
+              valueFrom:
+                secretKeyRef:
+                  name: database-romm-user
+                  key: DATABASE_NAME
+            DB_USER:
+              valueFrom:
+                secretKeyRef:
+                  name: database-romm-user
+                  key: USER
+            DB_PASSWD:
+              valueFrom:
+                secretKeyRef:
+                  name: database-romm-user
+                  key: PASSWORD
+
             ROMM_DB_DRIVER: postgresql
             REDIS_HOST: dragonfly.dragonfly.svc.cluster.local
             REDIS_PORT: 6379
