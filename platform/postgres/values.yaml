@@ -1,4 +1,4 @@
-postgres:
+postgresql:
   primary:
     persistence:
-      existingClaim: postgres-data
+      storageClass: nvme-mirror
