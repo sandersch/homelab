@@ -2,6 +2,7 @@ dragonfly:
   storage:
     enabled: true
     requests: 128Mi # Set as desired
+    storageClassName: nvme0
 
   extraArgs:
     - --dbfilename=my-dump-{timestamp} # should only contain the filename without any file extensions
